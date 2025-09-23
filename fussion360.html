@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion 360 Module Documentation - FABLAB Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Fusion 360 theme: Industrial grays and orange accents */
+        :root {
+            --primary: #FF6B00;
+            --primary-dark: #D45A00;
+            --secondary: #2C3E50;
+            --light-bg: #ECF0F1;
+            --dark-bg: #2C3E50;
+            --text-light: #ffffff;
+            --text-dark: #34495E;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #34495E 50%, #2C3E50 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(44, 62, 80, 0.95);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            color: var(--primary);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            color: var(--light-bg);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .module-info {
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        .info-item i {
+            color: var(--primary);
+        }
+        
+        nav {
+            background: rgba(44, 62, 80, 0.9);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav a {
+            color: var(--light-bg);
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover, nav a.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        
+        .days-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+        
+        .day-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-header {
+            background: var(--primary);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .card-header h2 {
+            margin: 0;
+            color: white;
+            font-size: 1.6em;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content p {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .content-placeholder {
+            background: rgba(236, 240, 241, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px dashed var(--primary);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7F8C8D;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .tool-pill {
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        footer {
+            background: rgba(44, 62, 80, 0.95);
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            color: var(--light-bg);
+            border-top: 3px solid var(--primary);
+        }
+        
+        .back-to-portfolio {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-portfolio:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2em; }
+            .days-container { grid-template-columns: 1fr; }
+            nav a { display: inline-block; margin: 5px; }
+            .module-info { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-cube"></i> Fusion 360 Module</h1>
+        <p>Master 3D CAD Design, Modeling, and Simulation</p>
+        
+        <div class="module-info">
+            <div class="info-item">
+                <i class="far fa-clock"></i>
+                <span>6 Days Intensive</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-tools"></i>
+                <span>Parametric Modeling</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-project-diagram"></i>
+                <span>3D Design & Assembly</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-industry"></i>
+                <span>Manufacturing Prep</span>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="#day1">Day 1</a>
+        <a href="#day2">Day 2</a>
+        <a href="#day3">Day 3</a>
+        <a href="#day4">Day 4</a>
+        <a href="#day5">Day 5</a>
+        <a href="#day6">Day 6</a>
+    </nav>
+    
+    <main>
+        <div class="days-container">
+            <div class="day-card" id="day1">
+                <div class="card-header">
+                    <h2>Day 1: Introduction & Basic Sketching</h2>
+                </div>
+                <div class="card-content">
+                    <p>Getting familiar with the Fusion 360 interface and creating your first 2D sketches.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Sketch Tools</span>
+                        <span class="tool-pill">Constraints</span>
+                        <span class="tool-pill">Dimensions</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        Add your Day 1 content here<br>
+                        (Interface overview, sketch tools, constraints, dimensions)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day2">
+                <div class="card-header">
+                    <h2>Day 2: 3D Modeling Basics</h2>
+                </div>
+                <div class="card-content">
+                    <p>Transforming 2D sketches into 3D models using extrusion, revolution, and other tools.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Extrude</span>
+                        <span class="tool-pill">Revolve</span>
+                        <span class="tool-pill">Fillet/Chamfer</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        Add your Day 2 content here<br>
+                        (Extrude, revolve, basic modifications, fillet, chamfer)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day3">
+                <div class="card-header">
+                    <h2>Day 3: Advanced Modeling Techniques</h2>
+                </div>
+                <div class="card-content">
+                    <p>Exploring more complex modeling tools and techniques for sophisticated designs.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Sweep</span>
+                        <span class="tool-pill">Loft</span>
+                        <span class="tool-pill">Pattern</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        Add your Day 3 content here<br>
+                        (Sweep, loft, pattern tools, construction planes)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day4">
+                <div class="card-header">
+                    <h2>Day 4: Assembly Design</h2>
+                </div>
+                <div class="card-content">
+                    <p>Creating multi-component assemblies and understanding how parts fit together.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Joints</span>
+                        <span class="tool-pill">As-Built</span>
+                        <span class="tool-pill">Constraints</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        Add your Day 4 content here<br>
+                        (Creating assemblies, joints, motion studies)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day5">
+                <div class="card-header">
+                    <h2>Day 5: Technical Drawings</h2>
+                </div>
+                <div class="card-content">
+                    <p>Generating professional technical drawings with dimensions and annotations.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Drawing Views</span>
+                        <span class="tool-pill">Annotations</span>
+                        <span class="tool-pill">Dimensions</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        Add your Day 5 content here<br>
+                        (Creating drawings, dimensioning, annotations, exporting)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day6">
+                <div class="card-header">
+                    <h2>Day 6: Final Project & Rendering</h2>
+                </div>
+                <div class="card-content">
+                    <p>Applying all learned skills to complete a comprehensive project with realistic rendering.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Render</span>
+                        <span class="tool-pill">Animation</span>
+                        <span class="tool-pill">Simulation</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        Add your Day 6 content here<br>
+                        (Final project, rendering, animation basics, project export)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>FABLAB Portfolio - Fusion 360 Module Documentation</p>
+        <p>&copy; 2023 Your Name | All rights reserved</p>
+        <a href="../index.html" class="back-to-portfolio">
+            <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security Module - FABLAB Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Cyber Security Theme: Matrix-inspired with glitch effects and terminal aesthetics */
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap');
+        
+        :root {
+            --matrix-green: #00ff41;
+            --hacker-red: #ff073a;
+            --cyber-blue: #0084ff;
+            --terminal-bg: #0a0a12;
+            --console-text: #cccccc;
+            --glow-effect: 0 0 10px var(--matrix-green), 0 0 20px var(--matrix-green);
+        }
+        
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            margin: 0;
+            padding: 0;
+            background-color: var(--terminal-bg);
+            color: var(--console-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 132, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 20%);
+        }
+
+        /* Matrix Rain Animation */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100px;
+            width: 14px;
+            font-size: 18px;
+            color: var(--matrix-green);
+            text-shadow: 0 0 5px var(--matrix-green);
+            animation: matrix-rain 15s linear infinite;
+        }
+
+        @keyframes matrix-rain {
+            0% { transform: translateY(-100px); }
+            100% { transform: translateY(calc(100vh + 100px)); }
+        }
+        
+        /* Glitch effect for headings */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch-text::before {
+            animation: glitch 2s infinite;
+            color: var(--hacker-red);
+            z-index: -1;
+        }
+        
+        .glitch-text::after {
+            animation: glitch 1s infinite;
+            color: var(--cyber-blue);
+            z-index: -2;
+        }
+        
+        header {
+            background: rgba(10, 10, 18, 0.9);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--matrix-green);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--matrix-green);
+            box-shadow: var(--glow-effect);
+            animation: scan 3s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        
+        header h1 {
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            color: var(--matrix-green);
+            text-shadow: var(--glow-effect);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            margin: 15px 0 0 0;
+            font-size: 1.3em;
+            color: var(--console-text);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .module-terminal {
+            background: rgba(20, 20, 30, 0.7);
+            border: 1px solid var(--matrix-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 900px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .terminal-header {
+            border-bottom: 1px solid var(--matrix-green);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .terminal-prompt {
+            color: var(--matrix-green);
+            font-weight: bold;
+        }
+        
+        .terminal-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .terminal-command {
+            background: rgba(0, 132, 255, 0.1);
+            border: 1px solid var(--cyber-blue);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .terminal-command:hover {
+            background: rgba(0, 132, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 132, 255, 0.2);
+        }
+        
+        .terminal-command i {
+            font-size: 1.5em;
+            color: var(--cyber-blue);
+            margin-bottom: 8px;
+        }
+        
+        .terminal-command span {
+            display: block;
+            color: var(--console-text);
+            font-weight: 500;
+        }
+        
+        nav {
+            background: rgba(20, 20, 30, 0.9);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--hacker-red);
+            box-shadow: 0 5px 15px rgba(255, 7, 58, 0.1);
+        }
+        
+        .nav-terminal {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            background: rgba(30, 30, 40, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--hacker-red);
+        }
+        
+        .nav-terminal a {
+            color: var(--console-text);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            background: rgba(40, 40, 50, 0.8);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 7, 58, 0.3);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .nav-terminal a:hover, .nav-terminal a.active {
+            background: var(--hacker-red);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 7, 58, 0.3);
+        }
+        
+        main {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .security-terminal {
+            background: rgba(20, 20, 30, 0.8);
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid var(--matrix-green);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .security-terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--matrix-green), transparent);
+            animation: terminal-scan 4s linear infinite;
+        }
+        
+        @keyframes terminal-scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .security-terminal:hover {
+            transform: translateY(-5px);
+            border-color: var(--cyber-blue);
+            box-shadow: 0 12px 30px rgba(0, 132, 255, 0.2);
+        }
+        
+        .terminal-title {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+        }
+        
+        .terminal-title h2 {
+            margin: 0;
+            color: var(--matrix-green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8em;
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+        }
+        
+        .terminal-body {
+            color: var(--console-text);
+            line-height: 1.7;
+        }
+        
+        .command-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .command-tag {
+            background: linear-gradient(135deg, var(--hacker-red), #cc0052);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .security-alert {
+            background: rgba(255, 7, 58, 0.1);
+            border: 1px solid var(--hacker-red);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        .security-alert::before {
+            content: '⚠ SECURITY ALERT';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--hacker-red);
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            color: white;
+        }
+        
+        .content-terminal {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed var(--matrix-green);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-style: italic;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        footer {
+            background: rgba(20, 20, 30, 0.95);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid var(--matrix-green);
+            position: relative;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .footer-scan {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--matrix-green);
+            box-shadow: var(--glow-effect);
+        }
+        
+        .back-to-lab {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: var(--matrix-green);
+            color: black;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .back-to-lab:hover {
+            background: transparent;
+            border-color: var(--matrix-green);
+            color: var(--matrix-green);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2em; }
+            .security-grid { grid-template-columns: 1fr; }
+            .nav-terminal { flex-direction: column; }
+            .terminal-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Rain Animation -->
+    <div class="matrix-rain" id="matrixRain"></div>
+    
+    <header>
+        <div class="scan-line"></div>
+        <h1 class="glitch-text" data-text="CYBER SECURITY MODULE">CYBER SECURITY MODULE</h1>
+        <p>Hacking • Defense • Encryption • Network Security</p>
+        
+        <div class="module-terminal">
+            <div class="terminal-header">
+                <div class="terminal-prompt">root@fablab:~# module_info --cybersecurity</div>
+                <div class="terminal-status">[ACTIVE]</div>
+            </div>
+            <div class="terminal-content">
+                <div class="terminal-command">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Security Fundamentals</span>
+                </div>
+                <div class="terminal-command">
+                    <i class="fas fa-user-secret"></i>
+                    <span>Ethical Hacking</span>
+                </div>
+                <div class="terminal-command">
+                    <i class="fas fa-lock"></i>
+                    <span>Encryption</span>
+                </div>
+                <div class="terminal-command">
+                    <i class="fas fa-network-wired"></i>
+                    <span>Network Defense</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-terminal">
+            <a href="../index.html"><i class="fas fa-terminal"></i> HOME</a>
+            <a href="#day1">DAY_01</a>
+            <a href="#day2">DAY_02</a>
+            <a href="#day3">DAY_03</a>
+            <a href="#day4">DAY_04</a>
+            <a href="#day5">DAY_05</a>
+            <a href="#day6">DAY_06</a>
+            <a href="#day7">DAY_07</a>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="security-grid">
+            <div class="security-terminal" id="day1">
+                <div class="terminal-title">
+                    <h2>DAY_01: SECURITY FUNDAMENTALS</h2>
+                </div>
+                <div class="terminal-body">
+                    <p>Introduction to cybersecurity concepts, threats, and defense mechanisms.</p>
+                    
+                    <div class="command-tags">
+                        <span class="command-tag">CIA Triad</span>
+                        <span class="command-tag">Threat Landscape</span>
+                        <span class="command-tag">Security Principles</span>
+                    </div>
+                    
+                    <div class="security-alert">
+                        Always practice ethical hacking principles and obtain proper authorization.
+                    </div>
+                    
+                    <div class="content-terminal">
+                        Add your Day 1 documentation<br>
+                        (Security concepts, threat models, basic principles)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-terminal" id="day2">
+                <div class="terminal-title">
+                    <h2>DAY_02: NETWORK SECURITY</h2>
+                </div>
+                <div class="terminal-body">
+                    <p>Understanding network vulnerabilities and defense strategies.</p>
+                    
+                    <div class="command-tags">
+                        <span class="command-tag">Firewalls</span>
+                        <span class="command-tag">VPNs</span>
+                        <span class="command-tag">Packet Analysis</span>
+                    </div>
+                    
+                    <div class="content-terminal">
+                        Add your Day 2 documentation<br>
+                        (Network protocols, vulnerabilities, defense mechanisms)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-terminal" id="day3">
+                <div class="terminal-title">
+                    <h2>DAY_03: CRYPTOGRAPHY</h2>
+                </div>
+                <div class="terminal-body">
+                    <p>Exploring encryption algorithms and cryptographic principles.</p>
+                    
+                    <div class="command-tags">
+                        <span class="command-tag">Symmetric</span>
+                        <span class="command-tag">Asymmetric</span>
+                        <span class="command-tag">Hashing</span>
+                    </div>
+                    
+                    <div class="content-terminal">
+                        Add your Day 3 documentation<br>
+                        (Encryption techniques, algorithms, practical applications)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-terminal" id="day4">
+                <div class="terminal-title">
+                    <h2>DAY_04: ETHICAL HACKING</h2>
+                </div>
+                <div class="terminal-body">
+                    <p>Learning penetration testing and vulnerability assessment.</p>
+                    
+                    <div class="command-tags">
+                        <span class="command-tag">Reconnaissance</span>
+                        <span class="command-tag">Scanning</span>
+                        <span class="command-tag">Exploitation</span>
+                    </div>
+                    
+                    <div class="security-alert">
+                        Ethical hacking requires permission and responsible disclosure.
+                    </div>
+                    
+                    <div class="content-terminal">
+                        Add your Day 4 documentation<br>
+                        (Penetration testing, tools, methodologies)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-terminal" id="day5">
+                <div class="terminal-title">
+                    <h2>DAY_05: WEB SECURITY</h2>
+                </div>
+                <div class="terminal-body">
+                    <p>Securing web applications and understanding common vulnerabilities.</p>
+                    
+                    <div class="command-tags">
+                        <span class="command-tag">OWASP Top 10</span>
+                        <span class="command-tag">XSS</span>
+                        <span class="command-tag">SQL Injection</span>
+                    </div>
+                    
+                    <div class="content-terminal">
+                        Add your Day 5 documentation<br>
+                        (Web vulnerabilities, secure coding, mitigation)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-terminal" id="day6">
+                <div class="terminal-title">
+                    <h2>DAY_06: DIGITAL FORENSICS</h2>
+                </div>
+                <div class="terminal-body">
+                    <p>Investigating cyber incidents and analyzing digital evidence.</p>
+                    
+                    <div class="command-tags">
+                        <span class="command-tag">Data Recovery</span>
+                        <span class="command-tag">Log Analysis</span>
+                        <span class="command-tag">Incident Response</span>
+                    </div>
+                    
+                    <div class="content-terminal">
+                        Add your Day 6 documentation<br>
+                        (Forensic tools, investigation techniques, evidence handling)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-terminal" id="day7">
+                <div class="terminal-title">
+                    <h2>DAY_07: SECURITY OPERATIONS</h2>
+                </div>
+                <div class="terminal-body">
+                    <p>Implementing security controls and managing security infrastructure.</p>
+                    
+                    <div class="command-tags">
+                        <span class="command-tag">SIEM</span>
+                        <span class="command-tag">Access Control</span>
+                        <span class="command-tag">Policy Development</span>
+                    </div>
+                    
+                    <div class="content-terminal">
+                        Add your Day 7 documentation<br>
+                        (Security operations, controls, management)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-scan"></div>
+        <p>FABLAB PORTFOLIO • CYBER SECURITY MODULE</p>
+        <p>Stay Secure. Stay Ethical.</p>
+        <a href="../index.html" class="back-to-lab">
+            <i class="fas fa-arrow-left"></i> RETURN TO TERMINAL
+        </a>
+    </footer>
+
+    <script>
+        // Create Matrix rain effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const matrixRain = document.getElementById('matrixRain');
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&!?*';
+            const columns = Math.floor(window.innerWidth / 14);
+            
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = (i * 14) + 'px';
+                column.style.animationDelay = (Math.random() * 5) + 's';
+                column.style.animationDuration = (10 + Math.random() * 10) + 's';
+                
+                // Add random characters
+                for (let j = 0; j < 30; j++) {
+                    const char = document.createElement('div');
+                    char.textContent = characters.charAt(Math.floor(Math.random() * characters.length));
+                    char.style.opacity = (30 - j) / 30;
+                    column.appendChild(char);
+                }
+                
+                matrixRain.appendChild(column);
+            }
+            
+            // Add glitch effect to headings occasionally
+            setInterval(() => {
+                const glitchElements = document.querySelectorAll('.glitch-text');
+                glitchElements.forEach(el => {
+                    el.style.animation = 'glitch 0.3s';
+                    setTimeout(() => {
+                        el.style.animation = '';
+                    }, 300);
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laser Cutting Module Documentation - FABLAB Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Laser Cutting theme: Modern industrial with precision grid layout */
+        :root {
+            --laser-red: #FF1A1A;
+            --grid-blue: #0066CC;
+            --dark-bg: #0A0A14;
+            --panel-bg: #1A1A2E;
+            --cut-line: #00FF88;
+            --text-glow: rgba(255, 26, 26, 0.6);
+            --material-card: #2D2D40;
+        }
+        
+        body {
+            font-family: 'Orbitron', 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--dark-bg);
+            color: #FFFFFF;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(10, 10, 20, 0.9) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(10, 10, 20, 0.9) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 102, 204, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 102, 204, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        header {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(20, 20, 40, 0.95));
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--laser-red);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .laser-beam {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--laser-red), transparent);
+            animation: laserSweep 4s linear infinite;
+        }
+        
+        @keyframes laserSweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            color: var(--laser-red);
+            text-shadow: 0 0 15px var(--text-glow);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        header p {
+            margin: 15px 0 0 0;
+            font-size: 1.3em;
+            color: #CCCCFF;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .module-badge {
+            background: rgba(255, 26, 26, 0.15);
+            border: 2px solid var(--laser-red);
+            border-radius: 25px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .badge-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(45, 45, 64, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+        
+        .badge-item i {
+            font-size: 2em;
+            color: var(--laser-red);
+            margin-bottom: 10px;
+        }
+        
+        .badge-item span {
+            display: block;
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+        
+        nav {
+            background: rgba(26, 26, 46, 0.95);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--grid-blue);
+        }
+        
+        .nav-grid {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            background: rgba(45, 45, 64, 0.6);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid var(--grid-blue);
+        }
+        
+        .nav-grid a {
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background: rgba(26, 26, 46, 0.8);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 102, 204, 0.3);
+        }
+        
+        .nav-grid a:hover, .nav-grid a.active {
+            background: var(--laser-red);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 26, 26, 0.4);
+        }
+        
+        main {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        
+        .cutting-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .material-sheet {
+            background: var(--material-card);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid var(--grid-blue);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .material-sheet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cut-line), transparent);
+            animation: cutLine 3s linear infinite;
+        }
+        
+        @keyframes cutLine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .material-sheet:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--laser-red);
+            box-shadow: 0 12px 35px rgba(255, 26, 26, 0.2);
+        }
+        
+        .sheet-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+        }
+        
+        .sheet-header h2 {
+            margin: 0;
+            color: var(--laser-red);
+            font-size: 1.8em;
+            text-shadow: 0 0 10px rgba(255, 26, 26, 0.3);
+        }
+        
+        .sheet-content {
+            color: #CCCCFF;
+            line-height: 1.7;
+        }
+        
+        .cut-settings {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .setting-tag {
+            background: linear-gradient(135deg, var(--grid-blue), #004499);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .safety-alert {
+            background: rgba(255, 26, 26, 0.1);
+            border: 1px solid var(--laser-red);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .safety-alert::before {
+            content: '⚠️';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            background: var(--laser-red);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .cut-preview {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px dashed var(--cut-line);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8888CC;
+            font-style: italic;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(20, 20, 40, 0.95));
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 3px solid var(--grid-blue);
+            position: relative;
+        }
+        
+        .footer-laser {
+            position: absolute;
+            top: -3px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--laser-red), transparent);
+        }
+        
+        .back-to-lab {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: var(--laser-red);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .back-to-lab:hover {
+            background: transparent;
+            border-color: var(--laser-red);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 26, 26, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2em; }
+            .cutting-table { grid-template-columns: 1fr; }
+            .nav-grid { flex-direction: column; }
+            .module-badge { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-overlay"></div>
+    
+    <header>
+        <div class="laser-beam"></div>
+        <h1><i class="fas fa-bolt"></i> LASER CUTTING MODULE</h1>
+        <p>Precision Engineering • Digital Fabrication • Material Science</p>
+        
+        <div class="module-badge">
+            <div class="badge-item">
+                <i class="fas fa-crosshairs"></i>
+                <span>Precision Cutting</span>
+            </div>
+            <div class="badge-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Safety First</span>
+            </div>
+            <div class="badge-item">
+                <i class="fas fa-layer-group"></i>
+                <span>Material Mastery</span>
+            </div>
+            <div class="badge-item">
+                <i class="fas fa-project-diagram"></i>
+                <span>Vector Design</span>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-grid">
+            <a href="../index.html"><i class="fas fa-home"></i> LAB</a>
+            <a href="#day1">DAY 1</a>
+            <a href="#day2">DAY 2</a>
+            <a href="#day3">DAY 3</a>
+            <a href="#day4">DAY 4</a>
+            <a href="#day5">DAY 5</a>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="cutting-table">
+            <div class="material-sheet" id="day1">
+                <div class="sheet-header">
+                    <h2>DAY 1: LASER FUNDAMENTALS</h2>
+                </div>
+                <div class="sheet-content">
+                    <p>Introduction to CO2 laser technology, safety protocols, and machine fundamentals.</p>
+                    
+                    <div class="cut-settings">
+                        <span class="setting-tag">Safety Training</span>
+                        <span class="setting-tag">Machine Overview</span>
+                        <span class="setting-tag">Basic Operations</span>
+                    </div>
+                    
+                    <div class="safety-alert">
+                        Always wear approved laser safety goggles and follow operational protocols.
+                    </div>
+                    
+                    <div class="cut-preview">
+                        Add your Day 1 documentation<br>
+                        (Safety procedures, machine components, initial training)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="material-sheet" id="day2">
+                <div class="sheet-header">
+                    <h2>DAY 2: VECTOR DESIGN</h2>
+                </div>
+                <div class="sheet-content">
+                    <p>Creating precision vector files for cutting and engraving operations.</p>
+                    
+                    <div class="cut-settings">
+                        <span class="setting-tag">SVG Files</span>
+                        <span class="setting-tag">Line Types</span>
+                        <span class="setting-tag">Design Software</span>
+                    </div>
+                    
+                    <div class="cut-preview">
+                        Add your Day 2 documentation<br>
+                        (Vector design, file preparation, software training)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="material-sheet" id="day3">
+                <div class="sheet-header">
+                    <h2>DAY 3: MATERIAL SCIENCE</h2>
+                </div>
+                <div class="sheet-content">
+                    <p>Understanding material properties and optimal laser settings.</p>
+                    
+                    <div class="cut-settings">
+                        <span class="setting-tag">Wood</span>
+                        <span class="setting-tag">Acrylic</span>
+                        <span class="setting-tag">Settings Testing</span>
+                    </div>
+                    
+                    <div class="safety-alert">
+                        Different materials require specific power and speed settings.
+                    </div>
+                    
+                    <div class="cut-preview">
+                        Add your Day 3 documentation<br>
+                        (Material testing, power/speed calibration, test patterns)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="material-sheet" id="day4">
+                <div class="sheet-header">
+                    <h2>DAY 4: ADVANCED TECHNIQUES</h2>
+                </div>
+                <div class="sheet-content">
+                    <p>Mastering engraving, kerf adjustment, and 3D assembly techniques.</p>
+                    
+                    <div class="cut-settings">
+                        <span class="setting-tag">Engraving</span>
+                        <span class="setting-tag">Kerf Testing</span>
+                        <span class="setting-tag">3D Construction</span>
+                    </div>
+                    
+                    <div class="cut-preview">
+                        Add your Day 4 documentation<br>
+                        (Advanced techniques, project planning, precision work)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="material-sheet" id="day5">
+                <div class="sheet-header">
+                    <h2>DAY 5: CAPSTONE PROJECT</h2>
+                </div>
+                <div class="sheet-content">
+                    <p>Design and execution of a comprehensive laser cutting project.</p>
+                    
+                    <div class="cut-settings">
+                        <span class="setting-tag">Final Design</span>
+                        <span class="setting-tag">Precision Cut</span>
+                        <span class="setting-tag">Quality Finish</span>
+                    </div>
+                    
+                    <div class="cut-preview">
+                        Add your Day 5 documentation<br>
+                        (Project execution, troubleshooting, final results)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-laser"></div>
+        <p>FABLAB PORTFOLIO • LASER CUTTING MODULE</p>
+        <p>Precision in Every Cut</p>
+        <a href="../index.html" class="back-to-lab">
+            <i class="fas fa-arrow-left"></i> RETURN TO LAB
+        </a>
+    </footer>
+</body>
+</html>
