@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Printing Module</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ===== 3D PRINTING THEME ===== */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto+Mono&display=swap');
+
+:root {
+  --neon-orange: #ff6b00;
+  --neon-cyan: #06f9f2;
+  --bg-dark: #0a0f1c;
+  --text-light: #e2e8f0;
+}
+
+body {
+  margin:0; padding:0;
+  font-family: 'Roboto Mono', monospace;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  overflow-x:hidden;
+}
+
+/* Glowing Grid Background */
+.grid-bg {
+  position:fixed;
+  width:100%; height:100%;
+  top:0; left:0;
+  background: 
+    linear-gradient(var(--neon-cyan) 1px, transparent 1px),
+    linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px);
+  background-size:40px 40px;
+  opacity:0.08;
+  z-index:-2;
+}
+
+/* Floating Wireframe Cube */
+@keyframes rotate {
+  from { transform: rotateX(0) rotateY(0); }
+  to { transform: rotateX(360deg) rotateY(360deg); }
+}
+.cube {
+  position: absolute;
+  top:20%; left:10%;
+  width:100px; height:100px;
+  transform-style: preserve-3d;
+  animation: rotate 10s linear infinite;
+}
+.cube div {
+  position: absolute;
+  width:100px; height:100px;
+  border:2px solid var(--neon-orange);
+}
+.cube .front { transform: translateZ(50px); }
+.cube .back { transform: rotateY(180deg) translateZ(50px); }
+.cube .right { transform: rotateY(90deg) translateZ(50px); }
+.cube .left { transform: rotateY(-90deg) translateZ(50px); }
+.cube .top { transform: rotateX(90deg) translateZ(50px); }
+.cube .bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+/* Header */
+header {
+  text-align:center;
+  padding:50px 20px;
+}
+header h1 {
+  font-family:'Orbitron', sans-serif;
+  font-size:3em;
+  color:var(--neon-orange);
+  text-shadow:0 0 20px var(--neon-orange);
+}
+header p { font-size:1.2em; color:#cbd5e1; }
+
+/* Navigation */
+nav {
+  text-align:center;
+  padding:20px;
+}
+.nav-3d {
+  display:inline-flex; flex-wrap:wrap; gap:10px;
+  background: rgba(255,255,255,0.05);
+  border-radius:12px;
+  padding:12px 18px;
+}
+.nav-3d a {
+  text-decoration:none;
+  color:var(--text-light);
+  padding:10px 16px;
+  border-radius:8px;
+  transition:0.3s;
+}
+.nav-3d a:hover, .nav-3d a.active {
+  background: linear-gradient(135deg,var(--neon-orange),var(--neon-cyan));
+  color:#000;
+  transform:translateY(-3px);
+}
+
+/* Documentation Cards */
+.grid-3d {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(330px,1fr));
+  gap:30px;
+  padding:40px 20px;
+}
+.card-3d {
+  background: rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:15px;
+  padding:25px;
+  box-shadow:0 0 20px rgba(255,107,0,0.3);
+  position:relative;
+  overflow:hidden;
+  transition:0.4s;
+}
+.card-3d:hover {
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 0 30px rgba(6,249,242,0.4);
+  border:1px solid var(--neon-cyan);
+}
+.card-title h2 {
+  font-family:'Orbitron', sans-serif;
+  font-size:1.6em;
+  margin-bottom:12px;
+  color:var(--neon-cyan);
+  text-shadow:0 0 10px var(--neon-cyan);
+}
+.card-body { line-height:1.6; }
+
+/* Tags */
+.tags { display:flex; flex-wrap:wrap; gap:8px; margin:15px 0; }
+.tag {
+  background:linear-gradient(135deg, var(--neon-cyan), var(--neon-orange));
+  color:black;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:0.9em;
+  font-weight:bold;
+}
+
+/* Placeholder Box */
+.doc-box {
+  margin-top:15px;
+  background: rgba(0,0,0,0.4);
+  border:1px dashed var(--neon-orange);
+  border-radius:10px;
+  padding:20px;
+  text-align:center;
+  font-style:italic;
+  min-height:100px;
+}
+
+/* Footer */
+footer {
+  text-align:center;
+  padding:30px 20px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+.back-link {
+  display:inline-block;
+  margin-top:12px;
+  padding:12px 22px;
+  background:linear-gradient(135deg,var(--neon-orange),var(--neon-cyan));
+  color:#000;
+  text-decoration:none;
+  font-family:'Orbitron',sans-serif;
+  border-radius:6px;
+  transition:0.3s;
+}
+.back-link:hover {
+  background:transparent;
+  border:1px solid var(--neon-orange);
+  color:var(--neon-orange);
+}
+
+@media(max-width:768px){
+  header h1{font-size:2em;}
+  .grid-3d{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="cube">
+  <div class="front"></div>
+  <div class="back"></div>
+  <div class="right"></div>
+  <div class="left"></div>
+  <div class="top"></div>
+  <div class="bottom"></div>
+</div>
+
+<header>
+  <h1>3D PRINTING MODULE</h1>
+  <p>Layer by Layer • Innovation in Motion</p>
+</header>
+
+<nav>
+  <div class="nav-3d">
+    <a href="../index.html"><i class="fas fa-home"></i> HOME</a>
+    <a href="#day1">DAY_01</a>
+    <a href="#day2">DAY_02</a>
+    <a href="#day3">DAY_03</a>
+    <a href="#day4">DAY_04</a>
+    <a href="#day5">DAY_05</a>
+    <a href="#day6">DAY_06</a>
+     <a href="#day7">DAY_07</a>
+  </div>
+</nav>
+
+<main>
+<div class="grid-3d">
+  <div class="card-3d" id="day1">
+    <div class="card-title"><h2>DAY_01: Basics of 3D Printing</h2></div>
+    <div class="card-body">
+      <p>Basics of 3D printing and its applications.</p>
+      <div class="tags"><span class="tag">Basics</span><span class="tag">Uses</span></div>
+      <div class="doc-box">
+        * Learn what *3D printing is* (additive manufacturing).<br>
+* Study types of 3D printing (focus mainly on *FDM* since it’s most common for beginners).<br>
+* Understand printer parts:<br>
+
+  * Frame, Bed, Extruder, Nozzle, Filament, Stepper Motors, Control Board.<br>
+* Watch a video or demo of a 3D printer in action.<br>
+</div>
+    </div>
+  </div>
+
+  <div class="card-3d" id="day2">
+    <div class="card-title"><h2>DAY_02: Materials & Safety</h2></div>
+    <div class="card-body">
+      <p>Understanding printer types, parts, and mechanisms.</p>
+      <div class="tags"><span class="tag">FDM</span><span class="tag">Resin</span></div>
+      <div class="doc-box"> 
+        * Learn about *filaments*: PLA, ABS, PETG, TPU (which to use and when).<br>
+* Understand *bed adhesion methods* (tape, glue stick, build plate, heated bed).<br>
+* Study *safety precautions*: hot nozzle, moving parts, ventilation.<br>
+</div>
+    </div>
+  </div>
+
+  <div class="card-3d" id="day3">
+    <div class="card-title"><h2>DAY_03: Introduction to CAD & STL Files</h2></div>
+    <div class="card-body">
+      <p>PLA, ABS, PETG, Resin, and material properties.</p>
+      <div class="tags"><span class="tag">PLA</span><span class="tag">ABS</span></div>
+      <div class="doc-box">
+* Learn basics of *3D design software* (TinkerCAD for beginners or Fusion360/Blender if you want advanced).<br>
+* Understand *STL file format* (used for 3D printing).<br>
+* Practice downloading free 3D models from Thingiverse / Printables.<br>
+ </div>
+    </div>
+  </div>
+
+  <div class="card-3d" id="day4">
+    <div class="card-title"><h2>DAY_04: SLICING SOFTWARE</h2></div>
+    <div class="card-body">
+      <p>G-code, Cura, PrusaSlicer, and print settings.</p>
+      <div class="tags"><span class="tag">G-code</span><span class="tag">Cura</span></div>
+      <div class="doc-box">
+        * Learn what a *slicer* is (converts STL → G-code).<br>
+* Install *Cura (most popular)* or PrusaSlicer.<br>
+* Study key slicing settings:<br>
+
+  * Layer height<br>
+  * Infill %<br>
+  * Supports<br>
+  * Print speed & temperature<br>
+* Preview toolpaths in slicer before printing<br>.
+
+</div>
+    </div>
+  </div>
+
+  <div class="card-3d" id="day5">
+    <div class="card-title"><h2>DAY_05: First Print & Calibration</h2></div>
+    <div class="card-body">
+      <p>Layer-by-layer printing, calibration, and troubleshooting.</p>
+      <div class="tags"><span class="tag">Calibration</span><span class="tag">Layers</span></div>
+      <div class="doc-box">
+        * Learn about *bed leveling* and why it matters.<br>
+* Calibrate printer: adjust nozzle height and bed surface.<br>
+* Start your *first test print* (like a calibration cube or Benchy).<br>
+* Observe common issues (warping, stringing, under-extrusion).<br>
+</div>
+    </div>
+  </div>
+
+  <div class="card-3d" id="day6">
+    <div class="card-title"><h2>DAY_06: Troubleshooting & Print Quality</h2></div>
+    <div class="card-body">
+      <p>Support removal, sanding, painting, and finishing.</p>
+      <div class="tags"><span class="tag">Finishing</span><span class="tag">Painting</span></div>
+      <div class="doc-box">
+        * Learn to identify and fix problems:<br>
+
+  * Bed adhesion issues → adjust leveling/bed temp.<br>
+  * Stringing → lower temp, enable retraction.<br>
+  * Layer shifting → tighten belts, check bed stability.<br>
+* Experiment with changing settings: speed, infill, supports.<br>
+</div>
+    </div>
+  </div>
+</div>
+
+ <div class="card-3d" id="day7">
+    <div class="card-title"><h2>DAY_07: Post-processing & Advanced Learning</h2></div>
+    <div class="card-body">
+      <p>Support removal, sanding, painting, and finishing.</p>
+      <div class="tags"><span class="tag">Finishing</span><span class="tag">Painting</span></div>
+      <div class="doc-box">
+      * Learn *post-processing techniques*: sanding, painting, acetone smoothing (for ABS).<br>
+* Explore advanced filaments: wood-fill, carbon-fiber, flexible TPU.<br>
+* Learn about multi-material and resin (SLA/DLP) printing as future steps.<br>
+* Print a *useful object* (phone stand, tool holder, custom keychain).<br>
+
+    </div>
+  </div>
+</div>
+
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\3Dprinting\3D1.jpg" height="550px">
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\3Dprinting\3D2.jpg" width="650px">
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\3Dprinting\3D3.jpeg"height="550px">
+
+
+</main>
+
+<footer>
+  <p>FABLAB PORTFOLIO • 3D PRINTING MODULE</p>
+  <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> RETURN TO PORTFOLIO</a>
+</footer>
+
+</body>
+</html>

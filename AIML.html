@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI / ML Module</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* AI/ML Theme - Neural Networks & Futuristic Glow */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto+Mono&display=swap');
+
+:root {
+  --ai-purple: #a855f7;
+  --ai-pink: #ec4899;
+  --ai-cyan: #06b6d4;
+  --bg-dark: #0a0f1c;
+  --text-light: #e2e8f0;
+}
+
+body {
+  margin:0; padding:0;
+  font-family: 'Roboto Mono', monospace;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  overflow-x:hidden;
+}
+
+/* Animated Gradient Background */
+@keyframes gradientFlow {
+  0% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+.bg-animated {
+  position:fixed;
+  width:100%; height:100%;
+  top:0; left:0;
+  z-index:-2;
+  background: linear-gradient(-45deg, var(--ai-purple), var(--ai-pink), var(--ai-cyan), #1e293b);
+  background-size: 400% 400%;
+  animation: gradientFlow 12s ease infinite;
+}
+
+/* Floating AI Nodes */
+@keyframes float {
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-20px);}
+  100%{transform:translateY(0);}
+}
+.node {
+  position:absolute;
+  border-radius:50%;
+  background: radial-gradient(circle, white, transparent);
+  width:10px; height:10px;
+  opacity:0.6;
+  animation: float 6s infinite ease-in-out;
+}
+.node:nth-child(1){top:20%; left:15%; animation-delay:0s;}
+.node:nth-child(2){top:35%; left:70%; animation-delay:1s;}
+.node:nth-child(3){top:60%; left:25%; animation-delay:2s;}
+.node:nth-child(4){top:75%; left:80%; animation-delay:3s;}
+.node:nth-child(5){top:50%; left:50%; animation-delay:4s;}
+
+/* Header */
+header {
+  text-align:center;
+  padding:50px 20px;
+}
+header h1 {
+  font-family:'Orbitron', sans-serif;
+  font-size:3em;
+  background: linear-gradient(90deg, var(--ai-purple), var(--ai-pink), var(--ai-cyan));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:2px;
+  text-shadow:0 0 20px rgba(168,85,247,0.6);
+}
+header p { font-size:1.2em; color:#cbd5e1; }
+
+/* Navigation */
+nav {
+  text-align:center;
+  padding:20px;
+}
+.nav-ai {
+  display:inline-flex; flex-wrap:wrap; gap:10px;
+  background: rgba(255,255,255,0.05);
+  border-radius:12px;
+  padding:12px 18px;
+}
+.nav-ai a {
+  text-decoration:none;
+  color:var(--text-light);
+  padding:10px 16px;
+  border-radius:8px;
+  transition:0.3s;
+}
+.nav-ai a:hover, .nav-ai a.active {
+  background: linear-gradient(135deg,var(--ai-purple),var(--ai-cyan));
+  color:#000;
+  transform:translateY(-3px);
+}
+
+/* AI Cards */
+.ai-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(330px,1fr));
+  gap:30px;
+  padding:40px 20px;
+}
+.ai-card {
+  background: rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:15px;
+  padding:25px;
+  box-shadow:0 0 20px rgba(236,72,153,0.2);
+  position:relative;
+  overflow:hidden;
+  transition:0.4s;
+}
+.ai-card:hover {
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 0 30px rgba(6,182,212,0.4);
+  border:1px solid var(--ai-cyan);
+}
+.card-title h2 {
+  font-family:'Orbitron', sans-serif;
+  font-size:1.6em;
+  margin-bottom:12px;
+  background:linear-gradient(90deg,var(--ai-purple),var(--ai-cyan));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.card-body { line-height:1.6; }
+
+/* Tags */
+.tags { display:flex; flex-wrap:wrap; gap:8px; margin:15px 0; }
+.tag {
+  background:linear-gradient(135deg, var(--ai-pink), var(--ai-purple));
+  color:black;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:0.9em;
+  font-weight:bold;
+}
+
+/* Documentation Placeholder */
+.doc-box {
+  margin-top:15px;
+  background: rgba(0,0,0,0.4);
+  border:1px dashed var(--ai-purple);
+  border-radius:10px;
+  padding:20px;
+  text-align:center;
+  font-style:italic;
+  min-height:100px;
+}
+
+/* Footer */
+footer {
+  text-align:center;
+  padding:30px 20px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+.back-link {
+  display:inline-block;
+  margin-top:12px;
+  padding:12px 22px;
+  background:linear-gradient(135deg,var(--ai-purple),var(--ai-cyan));
+  color:#000;
+  text-decoration:none;
+  font-family:'Orbitron',sans-serif;
+  border-radius:6px;
+  transition:0.3s;
+}
+.back-link:hover {
+  background:transparent;
+  border:1px solid var(--ai-pink);
+  color:var(--ai-pink);
+}
+@media(max-width:768px){
+  header h1{font-size:2em;}
+  .ai-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-animated"></div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+
+<header>
+  <h1>AI / ML MODULE</h1>
+  <p>Neural Networks • Learning • Intelligence</p>
+</header>
+
+<nav>
+  <div class="nav-ai">
+    <a href="../index.html"><i class="fas fa-home"></i> HOME</a>
+    <a href="#day1">DAY_01</a>
+    <a href="#day2">DAY_02</a>
+    <a href="#day3">DAY_03</a>
+    <a href="#day4">DAY_04</a>
+    <a href="#day5">DAY_05</a>
+    <a href="#day6">DAY_06</a>
+    <a href="#day7">DAY_07</a>
+    <a href="#day8">DAY_08</a>
+  </div>
+</nav>
+
+<main>
+<div class="ai-grid">
+  <div class="ai-card" id="day1">
+    <div class="card-title"><h2>DAY_01: Introduction to Python</h2></div>
+    <div class="card-body">
+      <p>Understanding AI concepts, history, and applications.</p>
+      <div class="tags"><span class="tag">AI Basics</span>
+                       <span class="tag">Applications</span> 
+        </div>
+      <div class="doc-box">-Why Python for AI/ML?<br>
+
+-Python basics: syntax, variables, data types.<br>
+
+-Input/Output in Python.<br>
+✅ Activity: Wrote first Python program (Hello World).<br><br></div>
+    </div>
+  </div>
+
+  <div class="ai-card" id="day2">
+    <div class="card-title"><h2>DAY_02: Python for Data Handling</h2></div>
+    <div class="card-body">
+      <p>Supervised, unsupervised, and reinforcement learning basics.</p>
+      <div class="tags"><span class="tag">ML</span><span class="tag">Supervised</span><span class="tag">Unsupervised</span></div>
+      <div class="doc-box">-Lists, tuples, dictionaries.<br>
+-Loops and conditional statements.<br>
+
+Functions in Python.<br>
+✅ Activity: Built a mini program for student grade calculation.<br></div>
+    </div>
+  </div>
+
+  <div class="ai-card" id="day3">
+    <div class="card-title"><h2>DAY_03: Python Libraries for ML</h2></div>
+    <div class="card-body">
+      <p>Data preprocessing, feature selection, and cleaning datasets.</p>
+      <div class="tags"><span class="tag">Data</span><span class="tag">Preprocessing</span></div>
+      <div class="doc-box">-Introduction to NumPy (arrays, mathematical operations).<br>
+
+-Introduction to Pandas (Series, DataFrames, CSV handling).<br>
+
+-Data visualization with Matplotlib.<br>
+✅ Activity: Plotted a simple graph using Matplotlib.<br></div>
+    </div>
+  </div>
+
+  <div class="ai-card" id="day4">
+    <div class="card-title"><h2>DAY_04: Basics of Machine Learning</h2></div>
+    <div class="card-body">
+      <p>Linear regression, logistic regression, and predictive modeling.</p>
+      <div class="tags"><span class="tag">Regression</span><span class="tag">Modeling</span></div>
+      <div class="doc-box">-What is ML? Real-life applications.<br>
+
+-Types of ML: Supervised, Unsupervised, Reinforcement.<br>
+
+-Dataset basics: training & testing.<br>
+✅ Activity: Explored sample datasets (Iris, MNIST).<br></div>
+    </div>
+  </div>
+
+  <div class="ai-card" id="day5">
+    <div class="card-title"><h2>DAY_05: Supervised Learning (Regression)</h2></div>
+    <div class="card-body">
+      <p>Decision trees, k-NN, SVM, and classification tasks.</p>
+      <div class="tags"><span class="tag">Classification</span><span class="tag">SVM</span></div>
+      <div class="doc-box">-Concept of regression.<br>
+
+-Linear Regression & its applications.<br>
+
+-Model training and evaluation.<br>
+✅ Activity: Implemented Linear Regression for house price prediction.<br></div>
+    </div>
+  </div>
+
+  <div class="ai-card" id="day6">
+    <div class="card-title"><h2>DAY_06: Supervised Learning (Classification)</h2></div>
+    <div class="card-body">
+      <p>Perceptrons, activation functions, and backpropagation.</p>
+      <div class="tags"><span class="tag">NN</span><span class="tag">Backprop</span></div>
+      <div class="doc-box">-Classification problems (spam detection, student result prediction).<br>
+
+-Algorithms: Logistic Regression, Decision Tree.<br>
+
+-Model accuracy evaluation.<br>
+✅ Activity: Built a simple classifier using sklearn.<br></div>
+    </div>
+  </div>
+
+  <div class="ai-card" id="day7">
+    <div class="card-title"><h2>DAY_07: Unsupervised Learning</h2></div>
+    <div class="card-body">
+      <p>CNNs, RNNs, and transfer learning basics.</p>
+      <div class="tags"><span class="tag">CNN</span><span class="tag">RNN</span></div>
+      <div class="doc-box">-Concept of clustering.<br>
+
+-K-Means Clustering.<br>
+
+-Applications: customer segmentation, pattern detection.<br>
+✅ Activity: Applied K-Means on Iris dataset.<br></div>
+    </div>
+  </div>
+
+  <div class="ai-card" id="day8">
+    <div class="card-title"><h2>DAY_08: Mini Project & Wrap-Up</h2></div>
+    <div class="card-body">
+      <p>Mini-project combining AI/ML concepts and practical implementation.</p>
+      <div class="tags"><span class="tag">Project</span><span class="tag">AI/ML</span></div>
+      <div class="doc-box">-End-to-End ML workflow: data preprocessing → model building → evaluation.<br>
+
+-Introduction to Neural Networks.<br>
+
+-Future of AI/ML (Deep Learning, Generative AI, AI Ethics).<br>
+✅ Activity: Presented mini-project (image classification/text-based project).<br></div>
+    </div>
+  </div>
+</div>
+</main>
+
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\AIML\aimlday1.jpg"  height="500px" width="500px" >
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\AIML\aimlday2.jpg"   height="500px" width="500px">
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\AIML\aimlday3.jpg"   height="500px" width="500px">
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\AIML\aimlday4.jpg"   height="500px" width="500px">
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\AIML\aimlday5.jpg"   height="500px" width="500px">
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\AIML\aimlday6.jpg"   height="500px" width="500px">
+
+<footer>
+  <p>FABLAB PORTFOLIO • AI / ML MODULE</p>
+  <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> RETURN TO PORTFOLIO</a>
+</footer>
+
+</body>
+</html>

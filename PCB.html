@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCB Module - FABLAB Portfolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* PCB Crazy Theme - Neon Circuits */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap');
+
+:root {
+  --pcb-green: #00ff6c;
+  --pcb-gold: #ffb400;
+  --pcb-blue: #00d0ff;
+  --bg-dark: #010a0f;
+  --text-light: #c0ffc0;
+  --glow: 0 0 10px var(--pcb-green), 0 0 20px var(--pcb-green);
+}
+
+body {
+  margin:0; padding:0;
+  font-family: 'Share Tech Mono', monospace;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+/* PCB Neon Circuit Animation Background */
+.circuit-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top:0; left:0;
+  z-index:-1;
+  background: radial-gradient(circle at 20% 20%, rgba(0, 208, 255,0.05), transparent 40%),
+              radial-gradient(circle at 80% 80%, rgba(0, 255, 108,0.05), transparent 40%);
+}
+
+/* Glitch Text */
+@keyframes glitch {0%{transform:translate(0);}20%{transform:translate(-2px,2px);}40%{transform:translate(-2px,-2px);}60%{transform:translate(2px,2px);}80%{transform:translate(2px,-2px);}100%{transform:translate(0);}}
+.glitch-text{position:relative; display:inline-block;}
+.glitch-text::before,.glitch-text::after{content:attr(data-text); position:absolute; top:0; left:0; width:100%; height:100%;}
+.glitch-text::before{animation:glitch 2s infinite; color: var(--pcb-gold); z-index:-1;}
+.glitch-text::after{animation:glitch 1s infinite; color: var(--pcb-blue); z-index:-2;}
+
+header {
+  text-align:center;
+  padding: 40px 20px;
+  border-bottom: 1px solid var(--pcb-green);
+  position:relative;
+  overflow:hidden;
+}
+header h1 { font-family:'Orbitron', sans-serif; font-size:3em; color:var(--pcb-green); text-shadow: var(--glow); margin-bottom:10px; }
+header p { font-size:1.2em; color:var(--text-light); }
+
+nav {
+  text-align:center;
+  padding:20px;
+  background: rgba(1,10,15,0.9);
+  border-bottom: 1px solid var(--pcb-gold);
+}
+.nav-terminal {
+  display:inline-flex; gap:6px; flex-wrap:wrap; padding:10px; border:1px solid var(--pcb-gold); border-radius:8px;
+}
+.nav-terminal a {
+  text-decoration:none; color:var(--text-light); padding:12px 18px; border-radius:6px; font-family:'Orbitron', sans-serif; 
+  border:1px solid rgba(255,180,0,0.3); transition:0.3s;
+}
+.nav-terminal a:hover, .nav-terminal a.active {
+  background: var(--pcb-gold); color:black; transform: translateY(-3px);
+}
+
+/* PCB Module Cards */
+.pcb-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(350px,1fr)); gap:30px; padding:20px; }
+.pcb-terminal { background: rgba(0,15,25,0.85); border-radius:12px; padding:25px; border:1px solid var(--pcb-green); box-shadow:0 10px 30px rgba(0,255,108,0.2); position:relative; overflow:hidden; transition:0.4s; }
+.pcb-terminal:hover { transform:translateY(-5px); border-color:var(--pcb-blue); box-shadow:0 15px 35px rgba(0,208,255,0.3); }
+
+.terminal-title h2 { color:var(--pcb-green); font-family:'Orbitron',sans-serif; font-size:1.8em; text-shadow:0 0 10px var(--pcb-green); margin-bottom:15px; }
+.terminal-body { line-height:1.6; }
+
+.command-tags { display:flex; flex-wrap:wrap; gap:10px; margin:15px 0; }
+.command-tag { background: linear-gradient(135deg, var(--pcb-blue), var(--pcb-gold)); color:black; padding:6px 12px; border-radius:20px; font-weight:bold; }
+
+.content-terminal { background: rgba(0,0,0,0.3); border:1px dashed var(--pcb-green); border-radius:10px; padding:25px; text-align:center; font-style:italic; margin-top:15px; min-height:120px; }
+
+/* Footer */
+footer { text-align:center; padding:30px 20px; border-top:1px solid var(--pcb-green); font-family:'Orbitron',sans-serif; }
+.back-to-lab { display:inline-block; margin-top:15px; padding:12px 25px; background: var(--pcb-green); color:black; text-decoration:none; border-radius:4px; transition:0.3s; }
+.back-to-lab:hover { background:transparent; color:var(--pcb-green); border:1px solid var(--pcb-green); transform:translateY(-3px); }
+
+@media (max-width:768px){ .pcb-grid{grid-template-columns:1fr;} header h1{font-size:2em;} }
+</style>
+</head>
+<body>
+
+<div class="circuit-bg"></div>
+
+<header>
+  <h1 class="glitch-text" data-text="PCB MODULE">PCB MODULE</h1>
+  <p>Design • Fabrication • Soldering</p>
+</header>
+
+<nav>
+  <div class="nav-terminal">
+    <a href="../index.html"><i class="fas fa-terminal"></i> HOME</a>
+    <a href="#day1">DAY_01</a>
+    <a href="#day2">DAY_02</a>
+    <a href="#day3">DAY_03</a>
+  </div>
+</nav>
+
+<main>
+<div class="pcb-grid">
+  <div class="pcb-terminal" id="day1">
+    <div class="terminal-title"><h2>DAY_01: PCB BASICS</h2></div>
+    <div class="terminal-body">
+      <p>Introduction to PCB design concepts, schematic diagrams, and EDA tools.</p>
+      <div class="command-tags">
+        <span class="command-tag">Schematic</span>
+        <span class="command-tag">EDA Tools</span>
+        <span class="command-tag">Components</span>
+      </div>
+      <div class="content-terminal">
+        -AC to DC Converter Schematic: Designed schematic for a basic AC to DC converter circuit.<br>
+
+-PCB Basics: Learned about PCB layers, traces, vias, footprints, and design rules.<br>
+
+-PPT Session: Discussed real-life applications of PCB and best design practices.<br>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="pcb-terminal" id="day2">
+    <div class="terminal-title"><h2>DAY_02: FABRICATION</h2></div>
+    <div class="terminal-body">
+      <p>Learn PCB fabrication techniques: etching, milling, layers, and boards.</p>
+      <div class="command-tags">
+        <span class="command-tag">Etching</span>
+        <span class="command-tag">Milling</span>
+        <span class="command-tag">Layers</span>
+      </div>
+      <div class="content-terminal">
+      -AC to DC Converter Layout: Converted schematic to PCB layout using design software.<br>
+
+-Component Placement & Routing: Practiced placement, routing, and checking for DRC (Design Rule Check) errors.<br>
+
+-Hands-on Session: Students worked on layout tools independently under guidance.<br>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="pcb-terminal" id="day3">
+    <div class="terminal-title"><h2>DAY_03: SOLDERING & TESTING</h2></div>
+    <div class="terminal-body">
+      <p>Hands-on soldering, testing circuits, and debugging PCB designs.</p>
+      <div class="command-tags">
+        <span class="command-tag">Soldering</span>
+        <span class="command-tag">Testing</span>
+        <span class="command-tag">Debugging</span>
+      </div>
+      <div class="content-terminal">
+        -DC Motor Speed Controller Schematic: Designed schematic for DC motor control circuit.<br>
+
+-Layout Designing: Converted schematic to layout and routed connections.<br>
+
+-Discussion & Q&A: Cleared doubts related to layout design, simulation, and real-world implementation.<br>
+
+
+    </div>
+  </div>
+</div>
+</main>
+
+
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\PCB\pcbday1.jpg"  height="500px" width="500px" >
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\PCB\pcbday2.jpg"   height="500px" width="500px">
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\PCB\pcbday3.jpg"   height="500px" width="500px">
+
+<footer>
+  <p>FABLAB PORTFOLIO • PCB MODULE</p>
+  <p>Design • Build • Test</p>
+  <a href="index.html" class="back-to-lab"><i class="fas fa-arrow-left"></i> RETURN TO TERMINAL</a>
+</footer>
+
+ 
+
+</body>
+</html>

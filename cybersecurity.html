@@ -460,7 +460,7 @@
         <div class="security-grid">
             <div class="security-terminal" id="day1">
                 <div class="terminal-title">
-                    <h2>DAY_01: SECURITY FUNDAMENTALS</h2>
+                    <h2>DAY_01: Introduction to networking</h2>
                 </div>
                 <div class="terminal-body">
                     <p>Introduction to cybersecurity concepts, threats, and defense mechanisms.</p>
@@ -476,15 +476,24 @@
                     </div>
                     
                     <div class="content-terminal">
-                        Add your Day 1 documentation<br>
-                        (Security concepts, threat models, basic principles)
+                       - We began with the very building blocks of networking—how information travels.<br>
+
+-Key components: sender, receiver, transmission medium (cables, wireless), message & protocol.<br>
+
+-Modes of communication: simplex, half-duplex, full-duplex with practical examples like walkie-talkies vs. video calls.<br>
+
+-Analog vs digital signals: why digital dominates in modern systems (noise immunity, easier processing).<br>
+
+-Essential characteristics: speed, accuracy, reliability, security.<br>
+
+-Real-world link: how a single WhatsApp message travels as packets from one phone to another through multiple networks.<br>
                     </div>
                 </div>
             </div>
             
             <div class="security-terminal" id="day2">
                 <div class="terminal-title">
-                    <h2>DAY_02: NETWORK SECURITY</h2>
+                    <h2>DAY_02:Types of Network & Nature of Data</h2>
                 </div>
                 <div class="terminal-body">
                     <p>Understanding network vulnerabilities and defense strategies.</p>
@@ -496,15 +505,21 @@
                     </div>
                     
                     <div class="content-terminal">
-                        Add your Day 2 documentation<br>
-                        (Network protocols, vulnerabilities, defense mechanisms)
+                       -We zoomed out to see how networks scale and how different types of data flow through them.<br>
+
+-LAN, MAN, WAN, PAN: From a home Wi-Fi network to global ISPs.<br>
+Client-server vs peer-to-peer models and their impact on scalability.<br>
+Bandwidth & latency trade-offs—why high-frequency trading needs ultra-low latency links.<br>
+
+-Kinds of data: oriented (structured), observed (sensor data), inferred (predictions/analytics).<br>
+Glimpse into IoT ecosystems where these network types coexist..<br>
                     </div>
                 </div>
             </div>
             
             <div class="security-terminal" id="day3">
                 <div class="terminal-title">
-                    <h2>DAY_03: CRYPTOGRAPHY</h2>
+                    <h2>DAY_03: The OSI Model Demystified</h2>
                 </div>
                 <div class="terminal-body">
                     <p>Exploring encryption algorithms and cryptographic principles.</p>
@@ -516,15 +531,21 @@
                     </div>
                     
                     <div class="content-terminal">
-                        Add your Day 3 documentation<br>
-                        (Encryption techniques, algorithms, practical applications)
-                    </div>
+                        -The famous 7-layer OSI stack stopped being a buzzword and became a roadmap.<br>
+
+-Layers: Physical, Data Link, Network, Transport, Session, Presentation, Application.<br>
+
+-Protocol examples: Ethernet, IP, TCP/UDP, SSL/TLS, HTTP/HTTPS, FTP.<br>
+
+-Encapsulation & de-encapsulation: how data is wrapped with headers and footers at each layer.<br>
+
+-Hands-on: tracing a packet’s journey from a laptop to a website using ping and traceroute.<br>
                 </div>
             </div>
-            
+            </div>
             <div class="security-terminal" id="day4">
                 <div class="terminal-title">
-                    <h2>DAY_04: ETHICAL HACKING</h2>
+                    <h2>DAY_04: Inside the Web: HTTP & DNS</h2>
                 </div>
                 <div class="terminal-body">
                     <p>Learning penetration testing and vulnerability assessment.</p>
@@ -540,15 +561,20 @@
                     </div>
                     
                     <div class="content-terminal">
-                        Add your Day 4 documentation<br>
-                        (Penetration testing, tools, methodologies)
+                       -We opened the black box of the browser.<br>
+
+-DNS as the internet’s phonebook: converting example.com to an IP address.<br>
+-HTTP/HTTPS request methods—GET, POST, PUT, DELETE—and how RESTful APIs use them.<br>
+-Caching & response codes (2xx, 3xx, 4xx, 5xx) to handle web traffic efficiently.<br>
+
+-Lab: using nslookup & browser dev-tools to watch a real DNS lookup in action.<br>
                     </div>
                 </div>
             </div>
             
             <div class="security-terminal" id="day5">
                 <div class="terminal-title">
-                    <h2>DAY_05: WEB SECURITY</h2>
+                    <h2>DAY_05: Revision & DHCP in Action</h2>
                 </div>
                 <div class="terminal-body">
                     <p>Securing web applications and understanding common vulnerabilities.</p>
@@ -560,15 +586,18 @@
                     </div>
                     
                     <div class="content-terminal">
-                        Add your Day 5 documentation<br>
-                        (Web vulnerabilities, secure coding, mitigation)
+                      -A quick OSI recap led to automatic IP management with DHCP.<br>
+
+-Difference between static and dynamic IPs.<br>
+-DHCP handshake: Discover → Offer → Request → Acknowledge.<br>
+-Checked a live router’s DHCP lease table and learned how ISPs dynamically assign addresses.<br>
                     </div>
                 </div>
             </div>
             
             <div class="security-terminal" id="day6">
                 <div class="terminal-title">
-                    <h2>DAY_06: DIGITAL FORENSICS</h2>
+                    <h2>DAY_06: Low-Level Protocols & Diagnostics</h2>
                 </div>
                 <div class="terminal-body">
                     <p>Investigating cyber incidents and analyzing digital evidence.</p>
@@ -580,15 +609,22 @@
                     </div>
                     
                     <div class="content-terminal">
-                        Add your Day 6 documentation<br>
-                        (Forensic tools, investigation techniques, evidence handling)
+                       -We explored the protocols that quietly keep networks alive.<br>
+
+-ARP (Address Resolution Protocol): maps IP to MAC addresses in a LAN.<br>
+
+-ICMP (Internet Control Message Protocol): the backbone of tools like ping & traceroute.<br>
+
+-DHCP Acknowledge: final confirmation of IP allocation.<br>
+
+-Practical: tracing packets and identifying network bottlenecks using these tools.<br>
                     </div>
                 </div>
             </div>
             
             <div class="security-terminal" id="day7">
                 <div class="terminal-title">
-                    <h2>DAY_07: SECURITY OPERATIONS</h2>
+                    <h2>DAY_07:From Theory to "Zynq" App</h2>
                 </div>
                 <div class="terminal-body">
                     <p>Implementing security controls and managing security infrastructure.</p>
@@ -600,22 +636,36 @@
                     </div>
                     
                     <div class="content-terminal">
-                        Add your Day 7 documentation<br>
-                        (Security operations, controls, management)
+                      -All the learning converged into a mini-project.<br>
+
+-Designed & submitted a Zynq FPGA-based application, applying concepts like DHCP, ARP & ICMP.<br>
+-Understood how embedded systems communicate with larger networks.<br>
+-Learned how these skills transfer to IoT devices, industrial automation, and edge computing.<br>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
+
+<img src="C:\Users\shrij\Downloads\sanchit portfolio\networking\networking1.jpg" height="600px"  width="1000px"  >
+
+
+
     
     <footer>
         <div class="footer-scan"></div>
         <p>FABLAB PORTFOLIO • CYBER SECURITY MODULE</p>
         <p>Stay Secure. Stay Ethical.</p>
-        <a href="../index.html" class="back-to-lab">
+        <a href="index.html" class="back-to-lab">
             <i class="fas fa-arrow-left"></i> RETURN TO TERMINAL
         </a>
     </footer>
+
+
+
+
+
 
     <script>
         // Create Matrix rain effect

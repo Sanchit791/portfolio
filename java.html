@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Days Java Module - Interactive Docs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #0f0f23, #1a1a3e, #2d2d5a);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        /* Header with glitch effect */
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #00ff88;
+        }
+
+        .glitch-title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ff88;
+            text-shadow: 
+                2px 0 #ff0040,
+                -2px 0 #00ffff;
+            animation: glitch 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            color: #ff6b6b;
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Day cards */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .day-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            margin: 2rem 0;
+            padding: 2rem;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, #00ff88, transparent);
+            animation: rotate 4s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .day-number {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .day-title {
+            font-size: 2rem;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .topic-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .topic-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid #00ff88;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic-item:hover {
+            transform: translateX(10px);
+            background: rgba(0, 255, 136, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+        }
+
+        .code-snippet {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-snippet::before {
+            content: 'JAVA';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        .projects {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .project-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-5px); }
+            75% { transform: translateY(-2px); }
+        }
+
+        /* Scroll progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #00ff88, #ff6b6b);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            animation: float-fab 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        @keyframes float-fab {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch-title {
+                font-size: 2rem;
+            }
+            
+            .day-title {
+                font-size: 1.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles"></div>
+    <div class="progress-bar"></div>
+
+    <header class="header">
+        <h1 class="glitch-title" onclick="triggerGlitch(this)">☕ 10 DAYS JAVA MODULE</h1>
+        <p class="subtitle">Interactive Documentation Experience</p>
+        <div class="nav-container">
+            <button class="nav-btn" onclick="scrollToDay(1)">Day 1</button>
+            <button class="nav-btn" onclick="scrollToDay(2)">Day 2</button>
+            <button class="nav-btn" onclick="scrollToDay(3)">Day 3</button>
+            <button class="nav-btn" onclick="scrollToDay(4)">Day 4</button>
+            <button class="nav-btn" onclick="scrollToDay(5)">Day 5</button>
+            <button class="nav-btn" onclick="scrollToDay(6)">Day 6</button>
+            <button class="nav-btn" onclick="scrollToDay(7)">Day 7</button>
+            <!-- <button class="nav-btn" onclick="scrollToDay(8)">Day 8</button>
+            <button class="nav-btn" onclick="scrollToDay(9)">Day 9</button>
+            <button class="nav-btn" onclick="scrollToDay(10)">Day 10</button> -->
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Day 1 -->
+        <div class="day-card" id="day-1">
+            <div class="day-header">
+                <div class="day-number">1</div>
+                <h2 class="day-title">Java Fundamentals & Setup</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">🚀 JDK Installation & Configuration</div>
+                    <div class="topic-item">🛠️ IDE Setup (Eclipse/IntelliJ)</div>
+                    <div class="topic-item">📋 Java History & Features</div>
+                    <div class="topic-item">🔧 First Java Program</div>
+                </div>
+                <div class="code-snippet">
+•	Learned variables, operators, loops, and conditionals.<br><br>
+	•	Practiced writing functions and simple problem-solving (factorial, prime, Fibonacci).<br><br>
+
+    // Day1Basics.java<br>
+public class Day1Basics {<br>
+    static int factorial(int n) {<br>
+        int result = 1;<br>
+        for (int i = 2; i <= n; i++) result *= i;<br>
+        return result;<br>
+    }<br><br>
+
+    static boolean isPrime(int n) {<br>
+        if (n <= 1) return false;<br>
+        for (int i = 2; i * i <= n; i++) if (n % i == 0) return false;<br>
+        return true;<br>
+    }<br>
+
+    public static void main(String[] args) {<br>
+        int a = 10, b = 3;<br>
+        System.out.println("a + b = " + (a + b));<br>
+        System.out.println("Factorial of 5 = " + factorial(5));<br>
+        System.out.println("Is 13 prime? " + isPrime(13));<br>
+    }<br>
+}<br><br>
+
+
+
+
+</div>
+                <div class="projects">
+                    <h3>🎯 Day 1 Projects:</h3>
+                    <div class="project-badge">Environment Setup</div>
+                    <div class="project-badge">Hello World Program</div>
+                    <div class="project-badge">Basic Output Examples</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card" id="day-2">
+            <div class="day-header">
+                <div class="day-number">2</div>
+                <h2 class="day-title">Functions & Recursion</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">🔢 Primitive Data Types</div>
+                    <div class="topic-item">📝 Variable Declaration</div>
+                    <div class="topic-item">🎯 Type Casting</div>
+                    <div class="topic-item">🔄 Constants & Final</div>
+                </div>
+                <div class="code-snippet">
+•	Explored modular programming with functions.<br>
+	•	Implemented recursion for factorial and Fibonacci.<br><br>
+
+Code:<br><br>
+
+// Day2Functions.java<br>
+public class Day2Functions {<br>
+    static int factorialRec(int n) {<br>
+        if (n <= 1) return 1;<br>
+        return n * factorialRec(n - 1);<br>
+    }<br><br>
+
+    static int fibRec(int n) {<br>
+        if (n <= 1) return n;<br>
+        return fibRec(n - 1) + fibRec(n - 2);<br>
+    }<br><br>
+
+    public static void main(String[] args) {<br>
+        System.out.println("Factorial(5) = " + factorialRec(5));<br>
+        System.out.println("Fibonacci(6) = " + fibRec(6));<br>
+    }<br>
+}<br><br>
+</div>
+                <div class="projects">
+                    <h3>🎯 Day 2 Projects:</h3>
+                    <div class="project-badge">Variable Practice</div>
+                    <div class="project-badge">Data Type Calculator</div>
+                    <div class="project-badge">Type Conversion Demo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card" id="day-3">
+            <div class="day-header">
+                <div class="day-number">3</div>
+                <h2 class="day-title">Classes & Objects</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">➕ Arithmetic Operators</div>
+                    <div class="topic-item">🔍 Comparison Operators</div>
+                    <div class="topic-item">🧠 Logical Operators</div>
+                    <div class="topic-item">🔄 Assignment Operators</div>
+                </div>
+                <div class="code-snippet">
+•	Learned about classes, objects, constructors, and methods.<br>
+	•	Implemented a Car class with attributes and methods.<br><br>
+
+Code:<br><br>
+
+// Car.java<br>
+class Car {<br>
+    String brand, model;<br>
+    int year, mileage;<br><br>
+
+    Car(String brand, String model, int year, int mileage) {<br>
+        this.brand = brand;<br>
+        this.model = model;<br>
+        this.year = year;<br>
+        this.mileage = mileage;<br>
+    }<br><br>
+
+    void drive(int km) {<br>
+        mileage += km;<br>
+        System.out.println("Driven " + km + " km. Mileage: " + mileage);<br>
+    }<br><br>
+
+    void display() {<br>
+        System.out.println(brand + " " + model + " (" + year + ") - " + mileage + " km");<br>
+    }<br>
+}<br><br>
+
+public class Day3CarDemo {<br>
+    public static void main(String[] args) {<br>
+        Car c1 = new Car("Toyota", "Yaris", 2020, 0);<br>
+        c1.display();<br>
+        c1.drive(120);<br>
+    }<br>
+}<br><br>
+
+</div>
+                <div class="projects">
+                    <h3>🎯 Day 3 Projects:</h3>
+                    <div class="project-badge">Basic Calculator</div>
+                    <div class="project-badge">Grade Evaluator</div>
+                    <div class="project-badge">Boolean Logic Demo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card" id="day-4">
+            <div class="day-header">
+                <div class="day-number">4</div>
+                <h2 class="day-title">Encapsulation & Abstraction</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">🔀 If-Else Statements</div>
+                    <div class="topic-item">🎭 Switch Cases</div>
+                    <div class="topic-item">🔄 Loops (for, while, do-while)</div>
+                    <div class="topic-item">🚪 Break & Continue</div>
+                </div>
+                <div class="code-snippet">
+•	Studied access modifiers (private, public).<br>
+	•	Used getters & setters for data hiding.<br><br>
+
+Code:<br><br>
+
+// BankAccount.java<br>
+class BankAccount {<br>
+    private String accountNumber;<br>
+    private String owner;<br>
+    private double balance;<br>
+
+    BankAccount(String accountNumber, String owner, double balance) {<br>
+        this.accountNumber = accountNumber;<br>
+        this.owner = owner;<br>
+        this.balance = balance;<br>
+    }
+<br><br>
+    public double getBalance() { return balance; }<br><br>
+
+    public void deposit(double amount) }<br>
+        if (amount > 0) balance += amount;<br>
+    }<br><br>
+
+    public void withdraw(double amount) {<br>
+        if (amount > 0 && amount <= balance) balance -= amount;<br>
+        else System.out.println("Insufficient funds!");<br>
+    }<br><br>
+
+    public void display() {<br>
+        System.out.println("Account: " + accountNumber + ", Owner: " + owner + ", Balance: " + balance);<br>
+    }<br>
+}<br><br>
+
+public class Day4BankDemo {<br>
+    public static void main(String[] args) {<br>
+        BankAccount acct = new BankAccount("AC123", "Anshuman", 500);<br>
+        acct.display();<br>
+        acct.deposit(250);<br>
+        acct.withdraw(200);<br>
+        acct.display();<br>
+    }<br>
+}<br><br>
+
+</div>
+                <div class="projects">
+                    <h3>🎯 Day 4 Projects:</h3>
+                    <div class="project-badge">Number Guessing Game</div>
+                    <div class="project-badge">Grade Calculator</div>
+                    <div class="project-badge">Pattern Printing</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card" id="day-5">
+            <div class="day-header">
+                <div class="day-number">5</div>
+                <h2 class="day-title">Inheritance</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">📊 Array Declaration & Initialization</div>
+                    <div class="topic-item">🔍 Array Operations</div>
+                    <div class="topic-item">🌐 Multi-dimensional Arrays</div>
+                    <div class="topic-item">📋 Enhanced For Loop</div>
+                </div>
+                <div class="code-snippet">
+•	Learned code reusability through inheritance.<br>
+	•	Implemented a Person class and extended it with Student.<br><br>
+
+Code:<br><br>
+
+// Person.java<br>
+class Person {<br>
+    String name;<br>
+    int age;<br><br>
+
+    Person(String name, int age) {<br>
+        this.name = name;<br>
+        this.age = age;<br>
+    }<br><br>
+
+    void display() {<br>
+        System.out.println("Name: " + name + ", Age: " + age);<br>
+    }<br>
+}<br><br>
+
+class Student extends Person {<br>
+    String rollNo, course;<br><br>
+
+    Student(String name, int age, String rollNo, String course) {<br>
+        super(name, age);<br>
+        this.rollNo = rollNo;<br>
+        this.course = course;<br>
+    }<br><br>
+
+    @Override<br>
+    void display() {<br>
+        super.display();<br>
+        System.out.println("Roll No: " + rollNo + ", Course: " + course);<br>
+    }<br>
+}<br><br>
+
+public class Day5InheritanceDemo {<br>
+    public static void main(String[] args) {<br>
+        Student s = new Student("Tanu", 20, "IT40", "B.E. IT");<br>
+        s.display();<br>
+    }<br>
+}<br><br>
+
+</div>
+                <div class="projects">
+                    <h3>🎯 Day 5 Projects:</h3>
+                    <div class="project-badge">Array Sorter</div>
+                    <div class="project-badge">Matrix Operations</div>
+                    <div class="project-badge">Student Grade Manager</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="day-card" id="day-6">
+            <div class="day-header">
+                <div class="day-number">6</div>
+                <h2 class="day-title">Polymorphism</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">🔧 Method Declaration</div>
+                    <div class="topic-item">📤 Return Types & Parameters</div>
+                    <div class="topic-item">🔄 Method Overloading</div>
+                    <div class="topic-item">🌐 Static vs Instance Methods</div>
+                </div>
+                <div class="code-snippet">
+•	Learned method overriding and runtime polymorphism using abstract classes.<br><br>
+
+Code:<br><br>
+
+// Shape.java<br>
+abstract class Shape {<br>
+    abstract double area();<br>
+}<br><br>
+
+class Circle extends Shape {<br>
+    double radius;<br>
+    Circle(double radius) { this.radius = radius; }<br><br>
+
+    @Override<br>
+    double area() { return Math.PI * radius * radius; }<br>
+}<br>
+
+class Rectangle extends Shape {<br>
+    double w, h;<br>
+    Rectangle(double w, double h) { this.w = w; this.h = h; }<br><br>
+
+    @Override<br>
+    double area() { return w * h; }<br>
+}<br><br>
+
+public class Day6PolymorphismDemo {<br>
+    public static void main(String[] args) {<br>
+        Shape s1 = new Circle(5);<br>
+        Shape s2 = new Rectangle(4, 6);<br><br>
+
+        System.out.println("Circle area = " + s1.area());<br>
+        System.out.println("Rectangle area = " + s2.area());<br>
+    }<br>
+}<br><br>
+</div>
+                <div class="projects">
+                    <h3>🎯 Day 6 Projects:</h3>
+                    <div class="project-badge">Calculator with Methods</div>
+                    <div class="project-badge">String Utilities</div>
+                    <div class="project-badge">Math Operations Library</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="day-card" id="day-7">
+            <div class="day-header">
+                <div class="day-number">7</div>
+                <h2 class="day-title">Mini Project (Library Management System)</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">🏗️ Classes & Objects</div>
+                    <div class="topic-item">🔐 Encapsulation</div>
+                    <div class="topic-item">🏗️ Constructors</div>
+                    <div class="topic-item">📦 Access Modifiers</div>
+                </div>
+                <div class="code-snippet">
+•	Applied Encapsulation, Inheritance, and Polymorphism.<br>
+	•	Designed a Library system with Book, Member, and Library classes.<br><br>
+
+Code:<br><br>
+
+// Book.java<br>
+class Book {<br>
+    String title, author, isbn;<br><br>
+
+    Book(String title, String author, String isbn) {<br>
+        this.title = title;<br>
+        this.author = author;<br>
+        this.isbn = isbn;<br>
+    }<br><br>
+
+    void display() {<br>
+        System.out.println("Book: " + title + " by " + author + " [ISBN: " + isbn + "]");<br>
+    }<br>
+}<br><br>
+
+class Member {<br>
+    String name;<br>
+    int memberId;<br><br>
+
+    Member(String name, int memberId) {<br>
+        this.name = name;<br>
+        this.memberId = memberId;<br>
+    }<br><br>
+
+    void display() {<br>
+        System.out.println("Member: " + name + " (ID: " + memberId + ")");<br>
+    }<br>
+}<br><br>
+
+class Library {<br>
+    Book[] books;<br>
+    int count;<br><br>
+
+    Library(int size) {<br>
+        books = new Book[size];<br>
+        count = 0;<br>
+    }
+<br><br>
+    void addBook(Book b) {<br>
+        if (count < books.length) {<br>
+            books[count++] = b;<br>
+            System.out.println("Book added: " + b.title);<br>
+        } else {<br>
+            System.out.println("Library is full!");<br>
+        }<br>
+    }<br><br>
+
+    void showBooks() {<br>
+        System.out.println("--- Library Books ---");<br>
+        for (int i = 0; i < count; i++) books[i].display();<br>
+    }<br>
+}<br><br>
+
+public class Day7LibraryDemo {<br>
+    public static void main(String[] args) {<br>
+        Library lib = new Library(5);<br>
+        Book b1 = new Book("OOP in Java", "James Gosling", "111");<br>
+        Book b2 = new Book("Clean Code", "Robert Martin", "222");<br>
+        Member m1 = new Member("Anshuman", 101);<br><br>
+
+        lib.addBook(b1);<br>
+        lib.addBook(b2);<br><br>
+
+        m1.display();<br>
+        lib.showBooks();<br>
+    }<br>
+}
+<br>
+
+⸻<br><br>
+
+Key Outcomes<br>
+	•	Mastered OOP pillars (Encapsulation, Abstraction, Inheritance, Polymorphism).<br>
+	•	Learned how to design real-world systems in Java.<br>
+	•	Completed a mini project for portfolio demonstration.<br><br>
+
+
+    
+</div>
+                <div class="projects">
+                    <h3>🎯 Day 7 Projects:</h3>
+                    <div class="project-badge">Student Management System</div>
+                    <div class="project-badge">Bank Account Simulator</div>
+                    <div class="project-badge">Library Book Manager</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 8
+        <div class="day-card" id="day-8">
+            <div class="day-header">
+                <div class="day-number">8</div>
+                <h2 class="day-title">Inheritance & Polymorphism</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">👨‍👩‍👧‍👦 Inheritance Concepts</div>
+                    <div class="topic-item">🔄 Method Overriding</div>
+                    <div class="topic-item">🎭 Polymorphism</div>
+                    <div class="topic-item">🔑 Super Keyword</div>
+                </div>
+                <div class="code-snippet">
+class Animal {
+    public void makeSound() {
+        System.out.println("Animal makes sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Dog barks");
+    }
+    
+    public void wagTail() {
+        System.out.println("Dog wags tail");
+    }
+}</div>
+                <div class="projects">
+                    <h3>🎯 Day 8 Projects:</h3>
+                    <div class="project-badge">Animal Hierarchy</div>
+                    <div class="project-badge">Shape Calculator</div>
+                    <div class="project-badge">Vehicle Management</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 9 -->
+        <!-- <div class="day-card" id="day-9">
+            <div class="day-header">
+                <div class="day-number">9</div>
+                <h2 class="day-title">Exception Handling & File I/O</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">⚠️ Try-Catch Blocks</div>
+                    <div class="topic-item">🎯 Exception Types</div>
+                    <div class="topic-item">📁 File Reading/Writing</div>
+                    <div class="topic-item">🧹 Resource Management</div>
+                </div>
+                <div class="code-snippet">
+try {
+    int result = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Cannot divide by zero");
+} finally {
+    System.out.println("Cleanup code here");
+}
+
+// File I/O
+try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
+    String line = br.readLine();
+} catch (IOException e) {
+    e.printStackTrace();
+}</div>
+                <div class="projects">
+                    <h3>🎯 Day 9 Projects:</h3>
+                    <div class="project-badge">Error Handler Demo</div>
+                    <div class="project-badge">File Text Processor</div>
+                    <div class="project-badge">Data Logger</div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Day 10 -->
+        <!-- <div class="day-card" id="day-10">
+            <div class="day-header">
+                <div class="day-number">10</div>
+                <h2 class="day-title">Final Project & Review</h2>
+            </div>
+            <div class="content">
+                <div class="topic-list">
+                    <div class="topic-item">🚀 Project Planning</div>
+                    <div class="topic-item">🏗️ Implementation</div>
+                    <div class="topic-item">🧪 Testing & Debugging</div>
+                    <div class="topic-item">📋 Code Review</div>
+                </div>
+                <div class="code-snippet">
+// Final Project: Complete Java Application
+public class JavaFinalProject {
+    public static void main(String[] args) {
+        System.out.println("🎉 Congratulations!");
+        System.out.println("You've completed 10 days of Java!");
+        System.out.println("Ready for advanced concepts! 🚀");
+    }
+}</div>
+                <div class="projects">
+                    <h3>🎯 Day 10 Final Projects:</h3>
+                    <div class="project-badge">Personal Finance Tracker</div>
+                    <div class="project-badge">Inventory Management System</div>
+                    <div class="project-badge">Quiz Application</div>
+                    <div class="project-badge">File-based CRUD System</div>
+                </div>
+            </div>
+        </div>
+    </div> --> -->
+
+    <button class="fab" onclick="scrollToTop()" title="Back to Top">↑</button>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all day cards
+        document.querySelectorAll('.day-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+        });
+
+        // Navigation functions
+        function scrollToDay(dayNum) {
+            document.getElementById(`day-${dayNum}`).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function triggerGlitch(element) {
+            element.style.animation = 'none';
+            setTimeout(() => {
+                element.style.animation = 'glitch 0.5s ease-in-out 3';
+            }, 10);
+        }
+
+        // Interactive topic items
+        document.querySelectorAll('.topic-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.background = 'rgba(0, 255, 136, 0.2)';
+                setTimeout(() => {
+                    this.style.background = 'rgba(0, 0, 0, 0.3)';
+                }, 1000);
+            });
+        });
+
+        // Add some crazy interactions
+        let clickCount = 0;
+        document.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount % 10 === 0) {
+                document.body.style.filter = 'hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 1000);
+            }
+        });
+
+        // Konami code easter egg
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.toString() === konamiSequence.toString()) {
+                document.body.style.background = 'linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00, #ff00ff)';
+                document.body.style.backgroundSize = '400% 400%';
+                document.body.style.animation = 'rainbow 2s ease infinite';
+                
+                setTimeout(() => {
+                    location.reload();
+                }, 5000);
+            }
+        });
+
+        // Initialize
+        createParticles();
+
+        // Add rainbow keyframe
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rainbow {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    <div><img src="C:\Users\shrij\Downloads\sanchit portfolio\java\javaDay1.jpg" height="500px"  width="800px" ></div>
+
+
+     <footer>
+        <p>FABLAB Portfolio - java module Documentation</p>
+        <p>&copy; 2024 sanchit deshmukh | All rights reserved</p>
+        <a href="index.html" class="back-to-portfolio">
+            <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+    </footer>
+</body>
+</html>
