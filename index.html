@@ -3,1077 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanchit Deshmukh - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>FAB LAB</title>
     <style>
-        /* Variables */
-        :root {
-            --color-primary: #2D6A4F;
-            --color-secondary: #52B788;
-            --color-dark: #081C15;
-            --color-dark-medium: #1B4332;
-            --color-medium: #40916C;
-            --color-light-medium: #74C69D;
-            --color-light: #95D5B2;
-            --color-lighter: #B7E4C7;
-            --color-lightest: #D8F3DC;
-            --color-white: #ffffff;
-            --color-black: #000000;
-            --transition: all 0.3s ease-in-out;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --border-radius: 8px;
-        }
-
-        .dark-mode {
-            --color-primary: #52B788;
-            --color-secondary: #2D6A4F;
-            --color-dark: #D8F3DC;
-            --color-dark-medium: #B7E4C7;
-            --color-medium: #74C69D;
-            --color-light-medium: #40916C;
-            --color-light: #1B4332;
-            --color-lighter: #081C15;
-            --color-lightest: #040d0a;
-            --color-white: #081C15;
-            --color-black: #D8F3DC;
-        }
-
-        /* Base Styles */
-        * {
-            margin: 0;
+    body {
+            font-family: Arial, sans-serif;
+            margtyle>
+        in: 0;
             padding: 0;
-            box-sizing: border-box;
+            background: #d2c8ff;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--color-dark);
-            background-color: var(--color-white);
-            transition: var(--transition);
+        .navbar {
+            background: #fdb44b;
+            padding: 15px;
+            text-align:center;
+            margin: 20px;
+            height: 40px;
         }
-
-        a {
-            text-decoration: none;
-            color: var(--color-primary);
-            transition: var(--transition);
+        .navbar a {
+            color: black;
+            text-decoration:none;
+            margin: 15px;
+            font-size: 18px;
+            font-weight: bold;
         }
-
-        a:hover {
-            color: var(--color-secondary);
-        }
-
         .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--color-dark);
-            transition: var(--transition);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background-color: var(--color-primary);
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-        }
-
-        .btn:hover {
-            background-color: var(--color-secondary);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-            color: var(--color-white);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--color-primary);
-            color: var(--color-primary);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-        }
-
-        /* Header & Navigation */
-        header {
-            position:fixed; 
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--color-white);
-            box-shadow: var(--shadow);
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            color: var(--color-dark);
-            font-weight: 500;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background-color: var(--color-primary);
-            bottom: -5px;
-            left: 0;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .dark-mode-toggle {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            margin-left: 20px;
-            font-size: 1.2rem;
-            color: var(--color-dark);
-            transition: var(--transition);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            background-color: var(--color-lightest);
-            position: relative;
-            overflow:auto; 
-            padding-top: 250px;
-        }
-
-        .hero::before {
-            
-            position: relative;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(45, 106, 79, 0.2) 0%, rgba(82, 183, 136, 0.2) 100%);
-             
-        }
-
-        .hero-content {
-            position:relative; 
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            /* padding-top: 250px; 
-            max-height: 1000px; */
-            
-        
-        }
-
-        .hero-text {
-            flex: 1;
-            padding-right: 30px;
-        }
-
-        .hero-img {
-            flex: 1;
-            text-align: center;
-        }
-
-        .hero-img img {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 8px solid var(--color-white);
-            box-shadow: var(--shadow);
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: var(--color-dark);
-        }
-
-        .hero-text h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--color-medium);
-        }
-
-        .hero-text p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            color: var(--color-dark-medium);
-        }
-
-        .social-icons {
-            display: flex;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            border-radius: 50%;
-            margin-right: 15px;
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            background-color: var(--color-secondary);
-            transform: translateY(-5px);
-        }
-
-        /* About Section */
-        .about {
-            background-color: var(--color-white);
-        }
-
-        .about-content {
-            /* position: relative; */
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .about-details {
-            flex: 1;
-            min-width: 300px;
-            margin-left: 40px;
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--color-dark);
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            color: var(--color-dark-medium);
-        }
-
-        .detail-item {
-            margin-bottom: 20px;
-        }
-
-        .detail-item h4 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--color-primary);
-        }
-
-        .detail-item p {
-            color: var(--color-dark-medium);
-        }
-
-        .skills {
-            margin-top: 40px;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .skill-tag {
-            padding: 8px 16px;
-            background-color: var(--color-lightest);
-            color: var(--color-dark);
-            border-radius: 50px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            transition: var(--transition);
-        }
-
-        .skill-tag:hover {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            transform: translateY(-3px);
-        }
-
-        /* Projects Section */
-        .projects {
-            background-color: var(--color-lightest);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background-color: var(--color-white);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-img {
-            height: 200px;
-            background-color: var(--color-lighter);
-            display: flex;
-            align-items: center;
             justify-content: center;
-        }
-
-        .project-img i {
-            font-size: 3rem;
-            color: var(--color-primary);
-        }
-
-        .project-content {
             padding: 20px;
+            border: 10px;
+            background-color: aqua;
         }
-
-        .project-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--color-dark);
-        }
-
-        .project-content p {
-            color: var(--color-dark-medium);
-            margin-bottom: 15px;
-        }
-
-        /* Modules Section */
-        .modules {
-            background-color: var(--color-white);
-        }
-
-        .modules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .module-card {
-            background-color: var(--color-lightest);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .module-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .module-icon {
-            font-size: 2.5rem;
-            color: var(--color-primary);
-            margin-bottom: 15px;
-        }
-
-        .module-content {
-            padding: 30px 20px;
+        .week {
+            width: 500px;
+            margin: 15px;
             text-align: center;
+            background-color: #fdb44b;
+            border-radius: 20px;
         }
 
-        .module-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--color-dark);
-        }
-
-        .module-content p {
-            color: var(--color-dark-medium);
-            height: 0;
-            overflow: hidden;
-            transition: var(--transition);
-            opacity: 0;
-        }
-
-        .module-card.active .module-content p {
-            height: auto;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            opacity: 1;
-        }
-
-        .module-toggle {
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .module-toggle:hover {
-            background-color: var(--color-secondary);
-        }
-
-        /* Contact Section */
-        .contact {
-            background-color: var(--color-lightest);
-        }
-
-        .contact-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .contact-info {
-            flex: 1;
-            min-width: 300px;
-            margin-right: 40px;
-        }
-
-        .contact-form {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .contact-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            color: var(--color-dark);
-        }
-
-        .contact-info p {
-            margin-bottom: 20px;
-            color: var(--color-dark-medium);
-        }
-
-        .contact-details {
-            margin-top: 30px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .contact-item i {
-            width: 40px;
-            height: 40px;
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-        }
-
-        .contact-item p {
-            margin-bottom: 0;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: var(--color-dark);
-            font-weight: 500;
-        }
-
-        .form-control {
+        
+        .week img {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--color-lighter);
-            border-radius: var(--border-radius);
-            background-color: var(--color-white);
-            color: var(--color-dark);
-            transition: var(--transition);
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
         }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--color-primary);
+        
+
+        .week h2 {
+            font-size: 20px;
+            margin: 10px 0 5px;
+        }
+        .week p {
+            font-size: 14px;
+            color: #333;
         }
 
-        .form-control.error {
-            border-color: #e74c3c;
-        }
+        button :hover {
+            color: blue;
+            print-color-adjust: red;
+            display: inline;
+        
+        } 
 
-        .error-message {
-            color: #e74c3c;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            display: none;
-        }
+         .passphot {
+            margin: 50px;
+            border-radius: 20px;
+            background-color: black;
+         }
 
-        textarea.form-control {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--color-dark-medium);
-            color: var(--color-white);
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .footer-logo {
-            flex: 1;
-            min-width: 300px;
-            margin-bottom: 30px;
-        }
-
-        .footer-logo h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        .footer-links {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .footer-links ul {
-            list-style: none;
-            margin-left: 40px;
-        }
-
-        .footer-links h4 {
-            margin-bottom: 15px;
-            color: var(--color-lightest);
-        }
-
-        .footer-links a {
-            color: var(--color-lighter);
-            display: block;
-            margin-bottom: 10px;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--color-white);
-            transform: translateX(5px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Media Queries */
-        @media screen and (max-width: 992px) {
-            .hero-content {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-
-            .hero-text {
-                padding-right: 0;
-                margin-top: 40px;
-            }
-
-            .social-icons {
-                justify-content: center;
-            }
-
-            .about-details {
-                margin-left: 0;
-                margin-top: 40px;
-            }
-
-            .contact-info {
-                margin-right: 0;
-                margin-bottom: 40px;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background-color: var(--color-white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: var(--transition);
-            }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .nav-links li {
-                margin: 15px 0;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-img img {
-                width: 250px;
-                height: 250px;
-            }
-
-            .footer-links {
-                justify-content: flex-start;
-                margin-top: 20px;
-            }
-
-            .footer-links ul {
-                margin-left: 0;
-                margin-right: 40px;
-            }
-        }
-
-        @media screen and (max-width: 576px) {
-            .hero-img img {
-                width: 200px;
-                height: 200px;
-            }
-
-            .section {
-                padding: 60px 0;
-            }
-
-            .section-title {
-                margin-bottom: 40px;
-            }
-
-            .footer-links ul {
-                margin-right: 20px;
-            }
-        }
+         
     </style>
 </head>
-<body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container nav-container">
-            <a href="#home" class="logo">SANCHIT</a>
-            <div class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#modules">Modules</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <button class="dark-mode-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </ul>
-        </div>
+<body> 
+   <header> <div  class="navbar">
+      <button> <a href="#">Home</a>          </button>
+      <button> <a href="#">About</a>         </button>
+      <button> <a href="#">Assignments</a>   </button>
+      <button> <a href="#">Final Project</a> </button>
+      <button> <a href="#">Contact</a>       </button>
+    </div>
     </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1>Sanchit Deshmukh</h1>
-                <h3>IT Engineering Student</h3>
-                <p>Motivated 1st-year IT engineering student with a keen interest in web development and freelancing. Passionate about building user-friendly websites and continuously improving technical skills.</p>
-                <div class="btn-group">
-                    <a href="#contact" class="btn">Contact Me</a>
-                    <a href="#projects" class="btn btn-outline">View My Work</a>
-                </div>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/sanchit-deshmukh-890a472a6"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/Sanchit791"><i class="fab fa-github"></i></a>
-                    <a href="mailto:sanchitdeshmukh791@gmail.com" ><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-            <div class="hero-img">
-                <img src="sanchitimg.jpg" alt="Sanchit Deshmukh">
-            </div>
+    
+    <div class="passphot">
+          <img src="sanchit img.jpg" alt="Sanchit Deshmukh" height="200px"  > 
+    </div>
+    <div class="container">
+        <div class="week">
+            <img src="web devolopment.jpeg"  alt="web devolopment">
+           <a href="file:///C:/Users/dell/Desktop/fab%20lab/week%201.html"> <h2>Week 1</h2> </a>
+            <p>WEB Devolopment</p>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="about section">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Seeking opportunities to apply my knowledge and gain real-world experience.</h3>
-                    <p>I am a first-year IT engineering student at Sant Gadge Baba Amravati University, passionate about building user-friendly websites and continuously improving my technical skills.</p>
-                    <p>I'm currently exploring various technologies in the field of web development and looking for opportunities to apply my knowledge through freelancing and real-world projects.</p>
-                    <a href="sanchitresumi.jpg" class="btn" download="resume">Download Resume</a>
-                </div>
-                <div class="about-details">
-                    <div class="detail-item">
-                        <h4>Education</h4>
-                        <p>Bachelor of Engineering in Information Technology<br>
-                        Sant Gadge Baba Amravati University<br>
-                        Shri Sant Gajanan Maharaj College of Engineering, Shegaon<br>
-                        2024 - 2028</p>
-                    </div>
-                    <div class="detail-item">
-                        <h4>Languages</h4>
-                        <p>Marathi (Native), Hindi, English</p>
-                    </div>
-                    <div class="skills">
-                        <h4>Skills</h4>
-                        <div class="skill-tags">
-                            <span class="skill-tag">HTML</span>
-                            <span class="skill-tag">CSS</span>
-                            <span class="skill-tag">C</span>
-                            <span class="skill-tag">Problem-solving</span>
-                            <span class="skill-tag">Adaptability</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="week">
+            <img src="C:\Users\dell\Downloads\cad.jpeg" alt="CAD">
+            <h2>Week 2</h2>
+            <p>COMPUTER-AIDED DESIGN</p>
         </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects section">
-        <div class="container">
-            <div class="section-title">
-                <h2>My Projects</h2>
-            </div>
-            <div class="projects-grid">
-                <!-- Sample projects - will be updated with real projects later -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Personal Portfolio</h3>
-                        <p>A responsive portfolio website built with HTML, CSS, and JavaScript.</p>
-                        <a href="index.html" class="btn btn-outline">Learn More</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>College Website</h3>
-                        <p>Contributed to the redesign of college department website.</p>
-                        <a href="https://www.ssgmce.ac.in/" class="btn btn-outline">Learn More</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Responsive Landing Page</h3>
-                        <p>A modern landing page with responsive design for all devices.</p>
-                        <a href="#" class="btn btn-outline">Learn More</a>
-                    </div>
-                </div>
-            </div>
+        <div class="week">
+            <img src="C:\Users\dell\Downloads\lazer cutting.jpeg" alt="lazer cutting">
+            <h2>Week 3</h2>
+            <p>COMPUTER-CONTROLLED CUTTING</p>
         </div>
-    </section>
 
-    <!-- Modules Section -->
-    <section id="modules" class="modules section">
-        <div class="container">
-            <div class="section-title">
-                <h2>My Modules</h2>
-            </div>
-            <div class="modules-grid">
-
-
-
-                
-                <a href="webdevolopment.html">
-                <div class="module-card">
-                     
-                        <div class="module-content">
-                        <div class="module-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                       <a href="webdevolopment.html"><h3>Web Development</h3> </a>
-                        <p>Creating responsive, user-friendly websites using HTML, CSS, and JavaScript. Building web interfaces with modern design principles and best practices.</p>
-                    </div>
-                    <button class="module-toggle">
-                        <i class="fas fa-plus"></i>
-                    </button></a>
-                </div> </a>
-
-
-
-                <a href="fussion360.html">
-                <div class="module-card">
-                    <div class="module-content">
-                        <div class="module-icon">
-                            <i class="fas fa-drafting-compass"></i>
-                        </div>
-                        <h3>CAD</h3>
-                        <p>Computer-Aided Design for creating precise 2D and 3D models for engineering projects. Using industry-standard software to design technical specifications.</p>
-                    </div>
-                    <button class="module-toggle">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div> </a>
-
-
-
-                <a href="lesercuting.html">
-                <div class="module-card">
-                    <div class="module-content">
-                        <div class="module-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <h3>CAC</h3>
-                        <p>Computer-Aided Construction techniques for planning and implementing engineering projects. Using software to simulate and optimize construction processes.</p>
-                    </div>
-                    <button class="module-toggle">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div> </a>
-
-
-
-
-                <a href="3Dprinting.html">
-                <div class="module-card">
-                    <div class="module-content">
-                        <div class="module-icon">
-                            <i class="fas fa-cube"></i>
-                        </div>
-                        <h3>3D Printing</h3>
-                        <p>Creating physical objects from digital designs using additive manufacturing technology. Experience with various 3D printing methods and materials.</p>
-                    </div>
-                    <button class="module-toggle">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div> </a>
-
-
-
-
-                <a href="PCB.html">
-                <div class="module-card">
-                    <div class="module-content">
-                        <div class="module-icon">
-                            <i class="fas fa-microchip"></i>
-                        </div>
-                        <h3>PCB Design</h3>
-                        <p>Designing circuit boards for electronic devices. Creating layouts, routing connections, and optimizing designs for manufacturing.</p>
-                    </div>
-                    <button class="module-toggle">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div> </a>
-
-
-
-                <a href="IoT.html">
-                <div class="module-card">
-                    <div class="module-content">
-                        <div class="module-icon">
-                            <i class="fas fa-wifi"></i>
-                        </div>
-                        <h3>IoT</h3>
-                        <p>Internet of Things development including connecting devices, sensor integration, and creating smart systems for automation and data collection.</p>
-                    </div>
-                    <button class="module-toggle">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div></a>
-
-
-
-
-                <a href="java.html">
-                <div class="module-card">
-                    <div class="module-content">
-                        <div class="module-icon">
-                            <i class="fab fa-java"></i>
-                        </div>
-                        <h3>Java</h3>
-                        <p>Object-oriented programming with Java for developing applications, web services, and enterprise solutions with cross-platform compatibility.</p>
-                    </div>
-                    <button class="module-toggle">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div></a>
-
-
-
-                <a href="cybersecurity.html">
-                <div class="module-card">
-                    <div class="module-content">
-                        <div class="module-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                         <h3>Cyber Security</h3>  
-                           <p>Understanding network infrastructure, protocols, and security. Configuring and troubleshooting networks for optimal performance and security.</p>
-                    </div>
-                    <button class="module-toggle">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div></a>
-
-
-
-
-                <a href="AIML.html">
-                <div class="module-card">
-                    <div class="module-content">
-                        <div class="module-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h3>AI/ML</h3>
-                        <p>Exploring artificial intelligence and machine learning technologies. Building models for data analysis, prediction, and automation.</p>
-                    </div>
-                    <button class="module-toggle">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div></a>
-
-
-            </div>
+        <div class="week">
+            <img src="C:\Users\dell\Downloads\principles.jpeg" alt="principles">
+            <h2>Week 4</h2>
+            <p>PRINCIPLES AND PRACTICES</p>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-     <section id="contact" class="contact section">
-        <div class="container">
-            <div class="section-title">
-                <h3>My Contact</h3>
-                <h5>Mo.No :- 7038010205.</h5>
-                <h5>gmail:- sanchitdeshmukh791@gmail.com</h5> <br><br><br>
-
-                <h3> For any Query</h3>
-            
-            <form action="mailto:sanchitdeshmukh791@gmail.com" method="get">
-                <label for="name">Your Name:</label>
-                <input type="text" id="name" name="name" required><br><br>
-              
-                <label for="email">Your Email:</label>
-                <input type="email" id="email" name="email" required><br><br>
-              
-                <label for="subject">Subject:</label>
-                <input type="text" id="subject" name="subject" required><br><br>
-              
-                <label for="query">Query:</label>
-                <textarea id="query" name="query" rows="4" cols="50" required></textarea><br><br>
-              
-                <input type="submit" value="Send Query">
-              </form>
-              </div>
+        <div class="week">
+            <img src="C:\Users\dell\Downloads\aiml.jpg" alt="AIML">
+            <h2>Week 5</h2>
+            <p>AIML</p>
         </div>
-      </section>     
+
+        <div class="week">
+            <img src="C:\Users\dell\Downloads\cyber sicurity.jpeg" alt="cyber Security">
+            <h2>Week 6</h2>
+            <p>Cyber Security</p>
+        </div>
+
+    </div>
 </body>
 </html>
-                
-
