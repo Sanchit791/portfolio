@@ -1,0 +1,233 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Module Documentation - FABLAB Portfolio</title>
+    <style>
+        /* Modern web development theme: Clean, digital blues and whites with code-like accents */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #00d4ff;
+            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.2);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #00d4ff;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 1.2em;
+            color: #a0a0a0;
+        }
+        nav {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #00d4ff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 5px #00d4ff;
+        }
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .day-section {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #00d4ff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .day-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 212, 255, 0.3);
+        }
+        .day-section h2 {
+            color: #00d4ff;
+            font-size: 1.8em;
+            margin-top: 0;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 10px;
+        }
+        .day-section p {
+            color: #e0e0e0;
+            font-size: 1.1em;
+        }
+        .content-placeholder {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px dashed #00d4ff;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0a0a0;
+            font-style: italic;
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+            color: #a0a0a0;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            main { padding: 10px; }
+            .day-section { margin: 10px 0; }
+            nav a { display: block; margin: 5px 0; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Web Development Module</h1>
+        <p>FABLAB Documentation - 7-Day Journey into Building the Web</p>
+    </header>
+    
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="#day1">Day 1</a>
+        <a href="#day2">Day 2</a>
+        <a href="#day3">Day 3</a>
+        <a href="#day4">Day 4</a>
+        <a href="#day5">Day 5</a>
+        <a href="#day6">Day 6</a>
+        <a href="#day7">Day 7</a>
+    </nav>
+    
+    <main>
+        <section id="day1" class="day-section">
+            <h2>Day 1: Introduction to Web Development & HTML Basics</h2>
+            <div class="content-placeholder">
+               -What is Web Development? Frontend vs Backend.<br>
+
+-HTML structure ( &lt!DOCTYPE html&gt, &lthtml&gt, &lthead&gt, &ltbody&gt ).<br>
+
+
+-Basic tags: headings, paragraphs, links, images.<br>
+
+✅ Activity: Created a simple webpage with text and an image.<br>
+
+            </div>
+        </section>
+        
+        <section id="day2" class="day-section">
+            <h2>Day 2: HTML Forms & Tables</h2>
+            <div class="content-placeholder">
+                -Forms: &ltinput&gt, &lttextarea&gt, &ltbutton&gt, &ltselect&gt.<br>
+
+
+-Tables: &lttable&gt, &lttr&gt, &lttd&gt, &ltth&gt.<br>
+
+
+-Attributes: id, class, name.<br>
+
+✅ Activity: Designed a student registration form.<br>
+
+            </div>
+        </section>
+        
+        <section id="day3" class="day-section">
+            <h2>Day 3: Advanced HTML & Semantic Tags</h2>
+            <div class="content-placeholder">
+               -Semantic elements: &ltheader&gt, &ltnav&gt, &ltsection&gt, &ltarticle&gt, &ltfooter&gt.<br>
+
+-Multimedia in HTML: &ltaudio&gt, &ltvideo&gt.<br>
+
+-Hyperlinks, lists (ordered/unordered).<br>
+✅ Activity: Built a mini profile webpage using semantic structure.<br>
+            </div>
+        </section>
+        
+        <section id="day4" class="day-section">
+            <h2>Day 4: Introduction to CSS</h2>
+            <div class="content-placeholder">
+               -What is CSS? Inline, Internal, External CSS.<br>
+
+-Selectors: element, class, id.<br>
+
+-Styling text (fonts, colors, background).<br>
+✅ Activity: Styled a profile page with colors and fonts.<br>
+            </div>
+        </section>
+        
+        <section id="day5" class="day-section">
+            <h2>Day 5: CSS Box Model & Layouts</h2>
+            <div class="content-placeholder">
+               -Box model: margin, border, padding, content.<br>
+
+-CSS positioning: static, relative, absolute, fixed.<br>
+
+-Flexbox basics for responsive design.<br>
+✅ Activity: Designed a simple card layout using CSS.<br>
+            </div>
+        </section>
+        
+        <section id="day6" class="day-section">
+            <h2>Day 6: CSS Advanced Styling</h2>
+            <div class="content-placeholder">
+               -Transitions & hover effects.<br>
+
+-CSS Grid basics.<br>
+
+-Responsive design with media queries.<br>
+✅ Activity: Built a responsive portfolio homepage.<br>
+            </div>
+        </section>
+        
+        <section id="day7" class="day-section">
+            <h2>Day 7: Introduction to JavaScript</h2>
+            <div class="content-placeholder">
+              -Why JavaScript? Making websites interactive.<br>
+
+-Variables, data types, operators.<br>
+
+-DOM manipulation (document.getElementById, innerHTML).<br>
+
+-Event handling (onclick, onmouseover).<br>
+✅ Activity: Added a button that changes text/color on click.<br>
+            </div>
+        </section>
+    </main>
+
+    <img src="C:\Users\shrij\Downloads\sanchit portfolio\webdevolopment\html1.jpeg"  height="500px"  width="500px" >
+     <img src="C:\Users\shrij\Downloads\sanchit portfolio\webdevolopment\html2.jpg"  height="500px"  width="500px" >
+      <img src="C:\Users\shrij\Downloads\sanchit portfolio\webdevolopment\html3.png"  height="500px"  width="500px" >
+
+    <footer>
+        <p>FABLAB Portfolio - Web Devolopment Module Documentation</p>
+        <p>&copy; 2023 Your Name | All rights reserved</p>
+        <a href="../index.html" class="back-to-portfolio">
+            <i class="fas fa-arrow-left"> </i> Back to Portfolio</a>
+    </footer>
+
+
+</body>
+</html>

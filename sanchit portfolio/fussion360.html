@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion 360 Module Documentation - FABLAB Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Fusion 360 theme: Industrial grays and orange accents */
+        :root {
+            --primary: #FF6B00;
+            --primary-dark: #D45A00;
+            --secondary: #2C3E50;
+            --light-bg: #ECF0F1;
+            --dark-bg: #2C3E50;
+            --text-light: #ffffff;
+            --text-dark: #34495E;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #34495E 50%, #2C3E50 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(44, 62, 80, 0.95);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            color: var(--primary);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            color: var(--light-bg);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .module-info {
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        .info-item i {
+            color: var(--primary);
+        }
+        
+        nav {
+            background: rgba(44, 62, 80, 0.9);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav a {
+            color: var(--light-bg);
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover, nav a.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        
+        .days-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+        
+        .day-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-header {
+            background: var(--primary);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .card-header h2 {
+            margin: 0;
+            color: white;
+            font-size: 1.6em;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content p {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .content-placeholder {
+            background: rgba(236, 240, 241, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px dashed var(--primary);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7F8C8D;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .tool-pill {
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        footer {
+            background: rgba(44, 62, 80, 0.95);
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            color: var(--light-bg);
+            border-top: 3px solid var(--primary);
+        }
+        
+        .back-to-portfolio {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-portfolio:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2em; }
+            .days-container { grid-template-columns: 1fr; }
+            nav a { display: inline-block; margin: 5px; }
+            .module-info { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-cube"></i> Fusion 360 Module</h1>
+        <p>Master 3D CAD Design, Modeling, and Simulation</p>
+        
+        <div class="module-info">
+            <div class="info-item">
+                <i class="far fa-clock"></i>
+                <span>6 Days Intensive</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-tools"></i>
+                <span>Parametric Modeling</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-project-diagram"></i>
+                <span>3D Design & Assembly</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-industry"></i>
+                <span>Manufacturing Prep</span>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="#day1">Day 1</a>
+        <a href="#day2">Day 2</a>
+        <a href="#day3">Day 3</a>
+        <a href="#day4">Day 4</a>
+        <a href="#day5">Day 5</a>
+        <a href="#day6">Day 6</a>
+    </nav>
+    
+    <main>
+        <div class="days-container">
+            <div class="day-card" id="day1">
+                <div class="card-header">
+                    <h2>Day 1: Introduction & Basic Sketching</h2>
+                </div>
+                <div class="card-content">
+                    <p>Getting familiar with the Fusion 360 interface and creating your first 2D sketches.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Sketch Tools</span>
+                        <span class="tool-pill">Constraints</span>
+                        <span class="tool-pill">Dimensions</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        - Installation and setup of Fusion 360<br>
+- Introduction to User Interface and basic tools<br>
+- Practical: Created a solid cylinder, then modified it into a pipe using shell and cut tools<br>
+- Showcased sample projects to spark interest and demonstrate software capabilities<br>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day2">
+                <div class="card-header">
+                    <h2>Day 2: Sketching and Basic Features</h2>
+                </div>
+                <div class="card-content">
+                    <p>Transforming 2D sketches into 3D models using extrusion, revolution, and other tools.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Extrude</span>
+                        <span class="tool-pill">Revolve</span>
+                        <span class="tool-pill">Fillet/Chamfer</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        - Basics of 2D sketching<br>
+- Commands covered: Line, Circle, Rectangle, Sketch Dimensions, Coincident, Mirror, Circular and Rectangular Patterns
+Transition from 2D sketches to 3D modeling (Extrude)<br>
+-Introduction to Engineering Drawing environment<br>
+- Practical: Completed an assignment involving dimensional sketch and feature creation<br>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day3">
+                <div class="card-header">
+                    <h2>Day 3: Intermediate Modeling and Referencing</h2>
+                </div>
+                <div class="card-content">
+                    <p>Exploring more complex modeling tools and techniques for sophisticated designs.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Sweep</span>
+                        <span class="tool-pill">Loft</span>
+                        <span class="tool-pill">Pattern</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                       - How to import reference images using Canvas<br>
+- Calibrating canvas for scale accuracy<br>
+- Practical: Designed a Pikachu Keychain from reference image and modeled a Piston and Connecting Rod<br>
+- Commands and features introduced: Arcs, Equal constraint, Horizontal/Vertical, Revolve, Hole, Appearances<br>
+- Component structuring: Converting bodies to components, Renaming and organizing components<br>
+- Editing existing features using Timeline<br>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day4">
+                <div class="card-header">
+                    <h2>Day 4: Advanced Modeling and Assembly</h2>
+                </div>
+                <div class="card-content">
+                    <p>Creating multi-component assemblies and understanding how parts fit together.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Joints</span>
+                        <span class="tool-pill">As-Built</span>
+                        <span class="tool-pill">Constraints</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                        - Uploading project to Fusion 360 Cloud<br>
+
+- Practical: Designed an Electric Vehicle (EV) Motor Casing<br>
+
+- Advanced commands explored: Shell, Offset in Extrude, Join, Cut, Fillet, Offset in Sketch, Thread<br>
+
+- Understanding and ungrounding of Components from Parent<br>
+
+- Difference between Bodies and Components<br>
+
+- Introduction to Assembly techniques<br>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day5">
+                <div class="card-header">
+                    <h2>Day 5: Revision, Practice, and Extra Tools</h2>
+                </div>
+                <div class="card-content">
+                    <p>Generating professional technical drawings with dimensions and annotations.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Drawing Views</span>
+                        <span class="tool-pill">Annotations</span>
+                        <span class="tool-pill">Dimensions</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                      - Recap of Sketch and Solid commands<br>
+
+- Practical: Created Plastic Bottle, Hexagon and Triangle Pipes<br>
+
+- Engraving text on solid bodies<br>
+
+- Constructing planes at angle and offset planes<br>
+
+- Additional Commands: Hexagon, Concentric Circle, Tangent, Midpoint, Text, Project/Include, Loft, Pipe, Torus, Sphere, Coil, Move/Copy, Fillet, Chamfer, Assembly Tools<br>
+
+- Importing standard parts using McMaster-Carr<br>
+
+- Adjusting Workspace Units and Dimensions<br>
+
+- Understanding Browser and Timeline panel<br>
+
+- Intro to Rendering and Simulation environments<br>
+
+- Customizing Interface: Themes, Grid lines, Display settings<br>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="day-card" id="day6">
+                <div class="card-header">
+                    <h2>Day 6: Review and Feedback Session</h2>
+                </div>
+                <div class="card-content">
+                    <p>Applying all learned skills to complete a comprehensive project with realistic rendering.</p>
+                    
+                    <div class="tools-list">
+                        <span class="tool-pill">Render</span>
+                        <span class="tool-pill">Animation</span>
+                        <span class="tool-pill">Simulation</span>
+                    </div>
+                    
+                    <div class="content-placeholder">
+                       - Addressed doubts and solved practical problems faced during previous sessions<br>
+
+- Conducted a Q&A round<br>
+
+-Collected feedback and suggestions from participants<br>
+
+- Discussed improvements and future learning opportunities in CAD<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+     
+   <img src="C:\Users\shrij\Downloads\sanchit portfolio\fussion360\cad1.jpg" height="500px"  width="500px">
+      <img src="C:\Users\shrij\Downloads\sanchit portfolio\fussion360\cad2.jpg" height="500px"  width="500px">
+        <img src="C:\Users\shrij\Downloads\sanchit portfolio\fussion360\cad3.jpg" height="500px"  width="500px">
+          <img src="C:\Users\shrij\Downloads\sanchit portfolio\fussion360\cad4.jpg" height="500px"  width="500px">
+            <img src="C:\Users\shrij\Downloads\sanchit portfolio\fussion360\cad5.jpg" height="500px"  width="500px">
+
+
+
+    <footer>
+        <p>FABLAB Portfolio - Fusion 360 Module Documentation</p>
+        <p>&copy; 2023 Your Name | All rights reserved</p>
+        <a href="../index.html" class="back-to-portfolio">
+            <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+    </footer>
+</body>
+</html>

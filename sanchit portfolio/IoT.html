@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>7-Day IoT Module — Crazy Docs</title>
+  <meta name="description" content="7-day interactive crash course documentation — Internet of Things" />
+  <style>
+    /* ============ FUN, CRAZY STYLING ============ */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+    :root{
+      --bg1:#0f172a; --bg2:#071021;
+      --accent1:#00f5d4; --accent2:#7c3aed; --accent3:#ff4d6d;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(255,77,109,0.08), transparent),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:#e6eef8; -webkit-font-smoothing:antialiased;
+      padding:40px;
+    }
+
+    /* floating neon blobs */
+    .blob{position:fixed; filter:blur(40px); opacity:0.9; mix-blend-mode:screen; z-index:0}
+    .b1{width:420px;height:420px;left:-120px;top:-80px;background:linear-gradient(45deg,var(--accent2),var(--accent1));border-radius:50%}
+    .b2{width:300px;height:300px;right:-80px;bottom:-60px;background:linear-gradient(45deg,var(--accent3),var(--accent2));border-radius:48%}
+
+    .container{position:relative;z-index:1;max-width:1100px;margin:0 auto}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo .mark{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:grid;place-items:center;font-weight:800;color:#021022}
+    h1{margin:0;font-size:clamp(20px,3vw,32px);letter-spacing:-0.6px}
+    p.lead{margin:6px 0 0;color:rgba(230,238,248,0.8)}
+
+    nav.top-actions{display:flex;gap:8px}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent}
+
+    /* timeline + cards */
+    .grid{display:grid;grid-template-columns:320px 1fr;gap:20px;margin-top:26px;align-items:start}
+
+    .timeline{background:linear-gradient(180deg,var(--glass),var(--glass-2));padding:18px;border-radius:14px;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.03)}
+    .day-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;border-left:4px solid transparent}
+    .day-item.active{background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);border-left-color:var(--accent1)}
+    .day-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(180deg,var(--accent1),var(--accent2));box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    .day-title{font-weight:700}
+    .day-sub{font-size:12px;color:rgba(230,238,248,0.65)}
+
+    .card-panel{min-height:420px;padding:22px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
+    .card-top{display:flex;justify-content:space-between;align-items:center}
+    .kicker{font-size:12px;color:rgba(230,238,248,0.6);text-transform:uppercase;letter-spacing:1px}
+
+    .content{margin-top:16px;display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .lesson{background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);padding:14px;border-radius:12px}
+    .lesson h2{margin:0 0 8px;font-size:18px}
+    .lesson p{margin:0 0 10px;color:rgba(230,238,248,0.9)}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:12px}
+
+    .side-info{background:linear-gradient(180deg,var(--glass-2),transparent);padding:12px;border-radius:12px}
+    .side-info h3{margin:0 0 10px}
+
+    /* day navigation bottom */
+    .bottom-nav{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+    .progress{height:10px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent1),var(--accent3));width:0%;transition:width 600ms cubic-bezier(.2,.9,.2,1)}
+
+    /* tiny easter eggs */
+    .flipcard{perspective:1000px}
+    .flipcard-inner{transition:transform 600ms;transform-style:preserve-3d}
+    .flipcard:hover .flipcard-inner{transform:rotateY(8deg) rotateX(2deg)}
+
+    footer{margin-top:36px;color:rgba(230,238,248,0.55);font-size:13px}
+
+    /* responsive */
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr;}
+      .content{grid-template-columns:1fr}
+      body{padding:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="mark">IoT</div>
+        <div>
+          <h1>7‑Day IoT Module — Wild Docs</h1>
+          <p class="lead">Fast, visual, and slightly chaotic — use this as a standalone documentation page for your portfolio.</p>
+        </div>
+      </div>
+
+      <nav class="top-actions">
+        <button class="btn" id="darkToggle">✨ Theme</button>
+        <button class="btn" onclick="location.href='/'">🏠 Back to Portfolio</button>
+      </nav>
+    </header>
+
+    <main class="grid">
+      <aside class="timeline">
+        <!-- days list populated by JS -->
+        <div id="daysList"></div>
+      </aside>
+
+      <section class="card-panel flipcard">
+        <div class="card-top">
+          <div>
+            <div class="kicker" id="kicker">Day 1 • Introduction</div>
+            <h2 id="title">Welcome to IoT</h2>
+          </div>
+          <div>
+            <strong id="badge">Beginner</strong>
+          </div>
+        </div>
+
+        <div class="content">
+          <div>
+            <div class="lesson" id="lesson">
+              <!-- lesson content inserted by JS -->
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+              <button class="btn" id="prevBtn">← Prev</button>
+              <button class="btn" id="nextBtn">Next →</button>
+              <button class="btn ghost" id="completeBtn">Mark Complete</button>
+            </div>
+          </div>
+
+          <aside class="side-info">
+            <h3>Today's Kit</h3>
+            <div id="kitList"></div>
+            <hr style="opacity:0.06;margin:12px 0">
+            <h3>Quick Links</h3>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a class="btn ghost" href="#" id="showCode">View Example Code</a>
+              <a class="btn ghost" href="#" id="showRepo">Open Repo</a>
+            </div>
+          </aside>
+        </div>
+
+        <div class="bottom-nav">
+          <div class="progress" title="progress"><i id="progressBar"></i></div>
+          <div style="font-size:13px;color:rgba(230,238,248,0.7)" id="dayCounter">Day 1 / 7</div>
+        </div>
+      </section>
+    </main>
+
+    <!-- <footer>
+      Tip: You can copy this file into your portfolio root and link it with <code>&lt;a href="/iot-7days.html"&gt;IoT 7-Day Module&lt;/a&gt;</code> — the page is fully self-contained.
+    </footer> -->
+  </div>
+
+  <script>
+    // ======= Data for 7 days (edit content as you like) =======
+    const days = [
+      {
+        id:1, title:'Intro to IoT & Use Cases', level:'Beginner', kicker:'Foundations',
+        desc:`-Introduction to ESP8266: Learned about ESP8266 microcontroller, its pinout, specifications, and use in IoT projects.<br><br>
+
+               -Installing Arduino IDE: Step-by-step installation and configuration for programming ESP8266.<br><br>
+
+                -Setting up Arduino IDE for ESP8266: Added ESP8266 board manager URL and installed required libraries.<br><br>
+
+                 -Mini Program – Blink Internal LED: Wrote and uploaded first program to blink onboard LED.<br><br> `,
+
+                   
+
+        kit:['Raspberry Pi / ESP32','Breadboard + Wires','DHT22 (temp/humidity)']
+      },
+
+
+      {
+        id:2, title:'Electronics Basics & Sensors', level:'Beginner', kicker:'Hardware',
+        desc:`-Introduction to Wi-Fi in IoT: Learned how Wi-Fi enables IoT communication and networking basics (IP, SSID, password)<br><br>
+
+               -Wi-Fi Setup in ESP8266: Connected ESP8266 to a Wi-Fi network.<br><br>
+
+               -Program 1 – Connect ESP8266 to Wi-Fi: Verified connection by printing IP address in Serial Monitor.<br><br>
+
+              -Program 2 – Simple Web Server: Created a basic web page hosted on ESP8266 to control LED ON/OFF via browser.<br><br>`,
+        kit:['Multimeter','Jumper wires','Photoresistor']
+      },
+
+
+
+
+
+      {
+        id:3, title:'Microcontroller Programming', level:'Beginner → Intermediate', kicker:'Code',
+        desc:`-Quick Recap: Reviewed Wi-Fi connection and web server setup from Day 2.<br><br>
+
+               -Ultrasonic Sensor with ESP8266:<br><br>
+
+               -Program 1 – Distance Measurement: Interfaced ultrasonic sensor, measured distance, and printed results in Serial Monitor.<br><br>
+
+                -Program 2 – Live Web Page: Displayed live sensor data on a web page for real-time monitoring.<br><br>`,
+        kit:['ESP32/Arduino','USB cable','Arduino IDE / PlatformIO']
+      },
+
+
+
+
+
+
+      {
+        id:4, title:'Connectivity — WiFi & MQTT', level:'Intermediate', kicker:'Networking',
+        desc:`-Project Concept Discussion: Chose a mini IoT project based on sensor data and web control.<br><br>
+
+               -MIT App Inventor Setup: Installed and explored App Inventor interface.<br><br>
+
+                -App Design & Programming: Created a simple mobile app to display sensor data and control outputs.<br><br>
+
+                 -Integration: Connected the app with ESP8266 and successfully tested data transfer and control.<br><br>`,
+        kit:['Local PC broker','MQTT Explorer','Router access']
+      }
+
+
+
+
+
+
+      // {
+      //   id:5, title:'Edge Processing & Data Logging', level:'Intermediate', kicker:'Edge',
+      //   desc:`Filter sensor data on-device, log to local storage (SD/SQLite), and batch-upload to server. Learn basics of timestamps and payload formats.`,
+      //   kit:['SD card module','Lightweight DB','Cron / scheduler']
+      // },
+      // {
+      //   id:6, title:'Cloud Integration & Dashboards', level:'Advanced', kicker:'Cloud',
+      //   desc:`Push data to cloud endpoints, use InfluxDB/Grafana or a simple REST endpoint. Build a live dashboard for monitoring and alerts.`,
+      //   kit:['InfluxDB','Grafana','Public endpoint (ngrok)']
+      // },
+      // {
+      //   id:7, title:'Security, OTA & Project Wrap-up', level:'Advanced', kicker:'Production',
+      //   desc:`Secure credentials, use TLS for transport, implement OTA updates for devices, finalize project and prepare demo script.`,
+      //   kit:['Certificates','OTA server','Backup plan']
+      // }
+    ];
+
+     
+    
+    // ======= Render timeline =======
+    const daysList = document.getElementById('daysList');
+    days.forEach(d=>{
+      const el = document.createElement('div');
+      el.className = 'day-item';
+      el.dataset.id = d.id;
+      el.innerHTML = `<div class="day-dot"></div><div><div class="day-title">Day ${d.id}: ${d.title}</div><div class="day-sub">${d.kicker} • ${d.level}</div></div>`;
+      el.addEventListener('click',()=>selectDay(d.id));
+      daysList.appendChild(el);
+    });
+
+    // state
+    let current = 1;
+    const titleEl = document.getElementById('title');
+    const kickerEl = document.getElementById('kicker');
+    const badgeEl = document.getElementById('badge');
+    const lessonEl = document.getElementById('lesson');
+    const kitListEl = document.getElementById('kitList');
+    const progressBar = document.getElementById('progressBar');
+    const dayCounter = document.getElementById('dayCounter');
+
+    function render(day){
+      titleEl.textContent = day.title;
+      kickerEl.textContent = `Day ${day.id} • ${day.kicker}`;
+      badgeEl.textContent = day.level;
+      lessonEl.innerHTML = `<h2>${day.title}</h2><p> ${day.desc}</p><div class='tags'>` + day.kit.map(t=>`<span class='tag'>${t}</span>`).join('') + `</div>`;
+      kitListEl.innerHTML = day.kit.map(k=>`<div style='font-size:14px;margin-bottom:6px'>&#9679; ${k}</div>`).join('');
+
+      // highlight active
+      document.querySelectorAll('.day-item').forEach(el=>el.classList.toggle('active', Number(el.dataset.id)===day.id));
+      // progress
+      const w = Math.round((day.id/7)*100);
+      progressBar.style.width = w + '%';
+      dayCounter.textContent = `Day ${day.id} / 7`;
+    }
+
+    function selectDay(id){ current = id; render(days[id-1]); }
+
+    // navigation
+    document.getElementById('prevBtn').addEventListener('click',()=>{ if(current>1) selectDay(current-1); else wiggle(); });
+    document.getElementById('nextBtn').addEventListener('click',()=>{ if(current<7) selectDay(current+1); else celebrate(); });
+    document.getElementById('completeBtn').addEventListener('click',()=>{ markComplete(current); });
+
+    function wiggle(){
+      const c = document.querySelector('.card-panel');
+      c.animate([{transform:'translateX(0)'},{transform:'translateX(-8px)'},{transform:'translateX(8px)'},{transform:'translateX(0)'}],{duration:420});
+    }
+
+    // simple completion storage
+    function markComplete(id){
+      const done = JSON.parse(localStorage.getItem('iot_done')||'[]');
+      if(!done.includes(id)) done.push(id);
+      localStorage.setItem('iot_done',JSON.stringify(done));
+      flash(`Marked Day ${id} complete 👍`);
+      updateDoneUI();
+    }
+
+    function updateDoneUI(){
+      const done = JSON.parse(localStorage.getItem('iot_done')||'[]');
+      document.querySelectorAll('.day-item').forEach(el=>{
+        const id = Number(el.dataset.id);
+        if(done.includes(id)){
+          el.style.opacity = 0.86; el.querySelector('.day-dot').style.boxShadow = '0 6px 30px rgba(0,0,0,0.6)';
+          el.querySelector('.day-title').innerHTML += ' <span style="font-size:11px;color:rgba(230,238,248,0.55)">✓</span>';
+        }
+      });
+    }
+
+    function flash(msg){
+      const t = document.createElement('div');
+      t.textContent = msg; t.style.position='fixed'; t.style.right='20px'; t.style.bottom='20px'; t.style.padding='10px 14px';
+      t.style.borderRadius='10px'; t.style.background='linear-gradient(90deg,var(--accent1),var(--accent3))'; t.style.color='#021022'; t.style.zIndex=9999; document.body.appendChild(t);
+      setTimeout(()=>t.style.opacity='0',1800); setTimeout(()=>t.remove(),2400);
+    }
+
+    // celebration when finished
+    function celebrate(){
+      flash('You finished the module  🎉');
+      // tiny confetti
+      for(let i=0;i<50;i++){ const el = document.createElement('div'); el.style.position='fixed'; el.style.left=Math.random()*100+'%'; el.style.top='-10px'; el.style.width='8px'; el.style.height='8px'; el.style.background=['#00f5d4','#7c3aed','#ff4d6d'][Math.floor(Math.random()*3)]; el.style.opacity=0.95; el.style.borderRadius='2px'; el.style.transform='rotate('+Math.random()*360+'deg)'; el.style.zIndex=9999; document.body.appendChild(el);
+        el.animate([{transform:'translateY(0) rotate(0deg)'},{transform:'translateY(90vh) rotate(540deg)'}],{duration:1600+Math.random()*1000, easing:'cubic-bezier(.2,.9,.2,1)'});
+        setTimeout(()=>el.remove(),2600);
+      }
+    }
+
+    // theme toggle (tiny)
+    document.getElementById('darkToggle').addEventListener('click',()=>{
+      document.body.classList.toggle('alt');
+      if(document.body.classList.contains('alt')){
+        document.documentElement.style.setProperty('--accent1','#ffd166');
+        document.documentElement.style.setProperty('--accent2','#06d6a0');
+        document.documentElement.style.setProperty('--accent3','#118ab2');
+      } else {
+        document.documentElement.style.setProperty('--accent1','#00f5d4');
+        document.documentElement.style.setProperty('--accent2','#7c3aed');
+        document.documentElement.style.setProperty('--accent3','#ff4d6d');
+      }
+    });
+
+    // initial render
+    selectDay(1);
+    updateDoneUI();
+
+    // helpful links (placeholder)
+    document.getElementById('showCode').addEventListener('click',(e)=>{ e.preventDefault(); alert('Example code viewer — replace with your file link'); });
+    document.getElementById('showRepo').addEventListener('click',(e)=>{ e.preventDefault(); alert('Open your repo link here'); });
+  </script>
+  <img src="C:\Users\shrij\Downloads\sanchit portfolio\IoT\iot1.jpg" height="300px">
+</body>
+</html>
